@@ -1,5 +1,6 @@
 #include <RcppEigen.h>
 #include "Particle.h"
+#include <iostream>
 
 void update_Particle(struct Particle & Sampled_Particle, const Eigen::MatrixXd & A, const Eigen::MatrixXd & C, const Eigen::MatrixXd & Sigma_Inn, const Eigen::MatrixXd & Sigma_Add, std::list<Eigen::MatrixXd> Y)
 {
@@ -44,7 +45,7 @@ void update_Particle(struct Particle & Sampled_Particle, const Eigen::MatrixXd &
 	mu_new    = mu_pred + Kalman_Gain*Innovation;
 	Sigma_new = Sigma_pred - Kalman_Gain *C*Sigma_pred;
 
-	for (ii = 0; ii < Sampled_Particle.horizon-2; ii ++)
+	for (ii = 0; ii < Sampled_Particle.horizon-1; ii ++)
 	{
 		
 		it_Y--;
@@ -65,6 +66,5 @@ void update_Particle(struct Particle & Sampled_Particle, const Eigen::MatrixXd &
 
 	Sampled_Particle.mu    = mu_new;
 	Sampled_Particle.Sigma = Sigma_new;
-
 
 };

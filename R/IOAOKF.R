@@ -2,6 +2,9 @@
 IOAOKF = function(Y,mu_0,Sigma_0=NULL,A,C,s,Number,Particles,Sigma_Add,Sigma_Inn,anom_add_prob,anom_inn_prob,epsilon=0.000001,horizon_matrix)
 {
   
+  p = nrow(Sigma_Add)
+  q = nrow(Sigma_Inn)
+  
   Y_Full_list     = Y
   Particle_Number = Particles
   
@@ -111,8 +114,50 @@ IOAOKF = function(Y,mu_0,Sigma_0=NULL,A,C,s,Number,Particles,Sigma_Add,Sigma_Inn
   
   precision = solve( C %*% ( A %*%  Sigma_0  %*% t(A)  +  Sigma_Inn ) %*%  t(C) + Sigma_Add )
   
-  Out = Robust_filter(Y_expanded, C_matrix_list, Sigma_Add_matrix_list, Sigma_Inn_matrix_list, A, Sigma_Inn, Sigma_Add, s, Num_Descendents, Num_Particles, to_sample, Number_of_resamples, sigma_tilde, sigma_hat, mu_0, Sigma_0, horizon, prob_inn, prob_add, Particle_Number, Y_Full_list)
+  Pre_Out = Robust_filter(Y_expanded, C_matrix_list, Sigma_Add_matrix_list, Sigma_Inn_matrix_list, A, Sigma_Inn, Sigma_Add, s, Num_Descendents, Num_Particles, to_sample, Number_of_resamples, sigma_tilde, sigma_hat, mu_0, Sigma_0, horizon, prob_inn, prob_add, Particle_Number, Y_Full_list)
   
-  return(Out)
+  Transform_particle = function(x){
+    
+    out = list()
+    
+    out[["mu"]]    = x[[1]]
+    out[["Sigma"]] = x[[2]]
+    
+    out[["strength"]]   = x[[8]]
+    if (x[[3]] < 0.5){
+      out[["which_type"]] = "None"
+    } else {
+      if (x[[3]] < 1.5){
+        out[["which_type"]] = "W"
+      } else {
+        out[["which_type"]] = "V"
+      }
+    }
+    
+    out[["component"]]  = x[[4]]
+    out[["horizon"]]    = x[[7]] 
+    out[["ancestor"]]   = x[[6]] 
+    out[["id"]]         = x[[5]]
+      
+    return(out)
+  }
+  
+  Transform_list = function(x){
+    lapply(x,Transform_particle)
+  }
+  
+  Particles = lapply(Pre_Out, Transform_list)
+  
+  output = list()
+  
+  output[["particles"]] = Particles
+  output[["p"]]         = p
+  output[["q"]]         = q
+  
+  output[["Y"]] = Y
+  
+  output[["horizon"]] = horizon
+  
+  return(structure(output,class="ioaorkf"))  
   
 }

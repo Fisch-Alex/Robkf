@@ -28,7 +28,7 @@ double s, double General_weight)
 
 		specific_weight = -0.5*(  log(tmp+sampled_scale) - (1 +  sampled_scale*sampled_scale/tmp/(tmp+sampled_scale)) * factor );
 
-		std::cout << std::endl;
+		/*std::cout << std::endl;
 		std::cout << "sampled_scale_stuff";
 		std::cout << std::endl;
 		std::cout << Ancestor.log_prob;
@@ -50,9 +50,9 @@ double s, double General_weight)
 		std::cout << -0.5*(  log(tmp+sampled_scale) ) ;
 		std::cout << std::endl;
 		std::cout << specific_weight+likelihood;
-		std::cout << std::endl;
+		std::cout << std::endl; */
 
-		out.push_back(initiate_Particle(Ancestor.log_prob + likelihood + General_weight + Common_weight + specific_weight, 1, &Ancestor, 1, ii, sampled_scale));
+		out.push_back(initiate_Particle(Ancestor.log_prob + likelihood + General_weight + Common_weight + specific_weight, 1, &Ancestor, 2, ii, sampled_scale));
 
 	}
 

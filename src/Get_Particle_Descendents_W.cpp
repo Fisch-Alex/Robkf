@@ -25,7 +25,7 @@ double s, double General_weight, int horizon)
 
 		specific_weight = -0.5*(log(tmp+sampled_scale) - (1 +  sampled_scale*sampled_scale/tmp/(tmp+sampled_scale))  * factor );
 
-		out.push_back(initiate_Particle(Ancestor.log_prob + likelihood + General_weight + Common_weight + specific_weight, horizon, &Ancestor, 2, ii, sampled_scale));
+		out.push_back(initiate_Particle(Ancestor.log_prob + likelihood + General_weight + Common_weight + specific_weight, horizon, &Ancestor, 1, ii, sampled_scale));
 
 	}
 

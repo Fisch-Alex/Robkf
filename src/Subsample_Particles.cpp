@@ -37,17 +37,12 @@ std::list < struct Particle > Subsample_Particles(std::list < struct Particle > 
 	double dummy;
 
 	it = candidates.begin();
-
-	cout << std::endl;
-	cout << "Final_log_prob";
 	
   	while(it != candidates.end())
     	{
       		
 		Index[ii] = ii;
 		Probs[ii] = exp(it->log_prob - max_log_prob);
-		cout << std::endl;
-		cout << it->log_prob;
 		ii++;
 		it++;
 

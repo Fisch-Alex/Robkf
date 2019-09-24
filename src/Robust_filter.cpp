@@ -22,7 +22,64 @@ const int & horizon, const std::vector <double> & prob_inn, const std::vector <d
 
 	std::list< std::list < struct Particle > >::iterator it_List_of_List;
 
-	for (it_List_of_List = pre_out.begin(); it_List_of_List != pre_out.end(); it_List_of_List++)
+	it_List_of_List = pre_out.begin();
+
+	std::list < std::list < Eigen::MatrixXd > > State;
+
+		for (it_List = it_List_of_List->begin(); it_List != it_List_of_List->end(); it_List++)
+		{
+
+			std::list < Eigen::MatrixXd > Particle;
+
+			Particle.push_back(it_List->mu);
+
+			Particle.push_back(it_List->Sigma);
+
+			Eigen::MatrixXd Type(1,1);
+
+			Type << it_List->anomaly_type;
+
+			Particle.push_back(Type);
+
+			Eigen::MatrixXd Comp(1,1);
+
+			Comp << it_List->anomaly_comp+1;
+
+			Particle.push_back(Comp);
+
+			Eigen::MatrixXd id(1,1);
+
+			id << it_List->id;
+
+			Particle.push_back(id);	
+
+			Eigen::MatrixXd position(1,1);
+
+			position << -1;
+
+			Particle.push_back(position);
+
+			Eigen::MatrixXd horizon(1,1);
+
+			horizon << it_List->horizon;
+
+			Particle.push_back(horizon);		
+
+			Eigen::MatrixXd Strength(1,1);
+
+			Strength << it_List->anomaly_strength;
+
+			Particle.push_back(Strength);	
+
+			State.push_back(Particle);
+
+		}
+
+	Out.push_back(State);
+
+	it_List_of_List++;
+
+	for (; it_List_of_List != pre_out.end(); it_List_of_List++)
 	{
 
 		std::list < std::list < Eigen::MatrixXd > > State;
@@ -44,9 +101,27 @@ const int & horizon, const std::vector <double> & prob_inn, const std::vector <d
 
 			Eigen::MatrixXd Comp(1,1);
 
-			Comp << it_List->anomaly_comp;
+			Comp << it_List->anomaly_comp+1;
 
-			Particle.push_back(Comp);		
+			Particle.push_back(Comp);
+
+			Eigen::MatrixXd id(1,1);
+
+			id << it_List->id;
+
+			Particle.push_back(id);	
+
+			Eigen::MatrixXd position(1,1);
+
+			position << it_List->ancestor->position;
+
+			Particle.push_back(position);
+
+			Eigen::MatrixXd horizon(1,1);
+
+			horizon << it_List->horizon;
+
+			Particle.push_back(horizon);		
 
 			Eigen::MatrixXd Strength(1,1);
 

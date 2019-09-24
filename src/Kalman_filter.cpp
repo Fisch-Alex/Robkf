@@ -19,15 +19,33 @@ const int & horizon, const std::vector <double> & prob_inn, const std::vector <d
 
 	int counter;
 
+	std::vector<double> General_Weight_Inn(prob_inn.size(), 0),  General_Weight_Add(prob_add.size(), 0); 
+
 	std::list<std::list<Eigen::MatrixXd> >::const_iterator Y_iterator = Y_expanded.begin();
+	
+	for (int ii = 0; ii < prob_inn.size(); ii++)
+	{
+
+			General_Weight_Inn[ii] = -log(Num_Descendents) - log(tgamma(s)) + log(tgamma(s+0.5)) + s*log(s) + 0.5*log(sigma_hat[ii]) + log(prob_inn[ii]) - log(1-prob_inn[ii]) - log(Number_of_resamples[ii]);
+
+	}
+
+	for (int jj = 0; jj < prob_add.size(); jj++)
+	{
+
+			General_Weight_Add[jj] = -log(Num_Descendents) - log(tgamma(s)) + log(tgamma(s+0.5)) + s*log(s) + 0.5*log(sigma_tilde[jj]) + log(prob_add[jj]) - log(1-prob_add[jj]);
+
+	}
+
+	
 
 	for (counter = 0; counter < horizon-1; counter++)
 	{
 
 		Y_list.push_front(*Y_Full_it);		
 
-		New_Particles = Kalman_step(*Y_iterator, counter+1, Output, A, C_list, Sigma_Add_list, Sigma_Inn_Contribution, sigma_hat, sigma_tilde, to_sample, Sigma_Inn, Sigma_Add, Num_Descendents, s, prob_inn, 
-					    prob_add, Num_Particles, Y_list, Number_of_resamples);
+		New_Particles = Kalman_step(*Y_iterator, counter+1, counter, Output, A, C_list, Sigma_Add_list, Sigma_Inn_Contribution, sigma_hat, sigma_tilde, to_sample, Sigma_Inn, Sigma_Add, Num_Descendents, s, General_Weight_Inn, 
+					    General_Weight_Add, Num_Particles, Y_list);
 		Output.push_back(New_Particles);
 		Y_iterator++;
 		Y_Full_it++;
@@ -41,8 +59,8 @@ const int & horizon, const std::vector <double> & prob_inn, const std::vector <d
 
 		Y_list.push_front(*Y_Full_it);		
 
-		New_Particles = Kalman_step(*Y_iterator,horizon,Output, A, C_list, Sigma_Add_list, Sigma_Inn_Contribution, sigma_hat, sigma_tilde, to_sample, Sigma_Inn, Sigma_Add, Num_Descendents, s, prob_inn, 
-					    prob_add, Num_Particles, Y_list, Number_of_resamples);
+		New_Particles = Kalman_step(*Y_iterator,horizon, counter, Output, A, C_list, Sigma_Add_list, Sigma_Inn_Contribution, sigma_hat, sigma_tilde, to_sample, Sigma_Inn, Sigma_Add, Num_Descendents, s, General_Weight_Inn, 
+					    General_Weight_Add, Num_Particles, Y_list);
 		Output.push_back(New_Particles);
 		Y_iterator++;
 		Y_Full_it++;

@@ -24,6 +24,8 @@ std::list < struct Particle > Initial_list(const Eigen::MatrixXd & mu_0, const E
 	for (int ii = 0; ii < Number_of_Particles; ii++)
 	{
 
+		First_Particle.id = 0;
+		First_Particle.position = ii;
 		Output.push_back(First_Particle);
 
 	}

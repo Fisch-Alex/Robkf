@@ -3,7 +3,7 @@
 #include <R.h>
 
 std::list < struct Particle > Get_Particle_Additive_Descendents(const struct Particle & Ancestor, const double & log_likelihood, const int & Number, const double & s, const std::vector<double> sigma_tilde, const Eigen::MatrixXd & Sigma_Add, 
-const Eigen::MatrixXd & Pre_Numerator, const Eigen::MatrixXd & Pre_Denominator, const std::vector <double> prob_add)
+const Eigen::MatrixXd & Pre_Numerator, const Eigen::MatrixXd & Pre_Denominator, const std::vector <double> General_Weights_Add)
 {
 
 	std::list < struct Particle > Output;
@@ -19,7 +19,7 @@ const Eigen::MatrixXd & Pre_Numerator, const Eigen::MatrixXd & Pre_Denominator, 
 		Denominator = Pre_Denominator(ii,ii);
 
 		// Move this higher up the function 
-		General_Weight = -log(Number) - log(tgamma(s)) + log(tgamma(s+0.5)) + s*log(s) + 0.5*log(sigma_tilde[ii]) + log(prob_add[ii]) - log(1-prob_add[ii]);
+		General_Weight = General_Weights_Add[ii];
 
 		Additions = Get_Particle_Descendents_V(Ancestor, ii, Number, log_likelihood, sigma_tilde[ii], Sigma_Add(ii,ii), Numerator, Denominator, s, General_Weight);
 
