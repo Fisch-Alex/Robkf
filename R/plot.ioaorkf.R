@@ -1,7 +1,11 @@
 library(ggplot2)
 library(reshape2)
 
-plot.ioaorkf = function(x,time = NULL,horizon = 0,subset = NULL){
+plot.ioaorkf = function(x,time = NULL,horizon = NULL,subset = NULL){
+  
+  if (is.null(horizon)){
+    horizon = x$horizon
+  }
   
   if (is.null(time)){
     time = length(x[["particles"]]) - 1

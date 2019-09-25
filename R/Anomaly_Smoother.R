@@ -6,7 +6,7 @@ Get_ancestor = function(x,x_list,kk){
     
     old_x = x
     
-    x = x_list[[x$id+1-x$horizon]][[x$ancestor_particle]]
+    x = x_list[[x$id+1-x$horizon]][[x$ancestor_id]]
     
   }
   

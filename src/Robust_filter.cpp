@@ -43,7 +43,7 @@ const int & horizon, const std::vector <double> & prob_inn, const std::vector <d
 
 			Eigen::MatrixXd Comp(1,1);
 
-			Comp << it_List->anomaly_comp+1;
+			Comp << it_List->anomaly_comp;
 
 			Particle.push_back(Comp);
 

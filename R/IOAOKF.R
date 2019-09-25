@@ -123,7 +123,7 @@ IOAOKF = function(Y,mu_0,Sigma_0=NULL,A,C,s,Number,Particles,Sigma_Add,Sigma_Inn
     out[["mu"]]    = x[[1]]
     out[["Sigma"]] = x[[2]]
     
-    out[["strength"]]   = x[[8]]
+    out[["strength"]]   = as.numeric(x[[8]])
     if (x[[3]] < 0.5){
       out[["which_type"]] = "None"
     } else {
@@ -134,10 +134,10 @@ IOAOKF = function(Y,mu_0,Sigma_0=NULL,A,C,s,Number,Particles,Sigma_Add,Sigma_Inn
       }
     }
     
-    out[["component"]]  = x[[4]]
-    out[["horizon"]]    = x[[7]] 
-    out[["ancestor"]]   = x[[6]] 
-    out[["id"]]         = x[[5]]
+    out[["component"]]    = as.numeric(x[[4]])+1
+    out[["horizon"]]      = as.numeric(x[[7]])
+    out[["ancestor_id"]]  = as.numeric(x[[6]])+1 
+    out[["id"]]           = as.numeric(x[[5]])+1
       
     return(out)
   }
