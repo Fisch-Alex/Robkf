@@ -1,7 +1,12 @@
-print.ioaorkf = function(x,time = NULL,horizon = 0){
+#' @export
+print.ioaorkf = function(x,time = NULL,horizon = NULL){
   
   if (is.null(time)){
     time = length(x[["particles"]]) - 1
+  }
+  
+  if (is.null(horizon)){
+    horizon = x[["horizon"]]
   }
   
   if (horizon > 0){

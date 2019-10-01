@@ -1,6 +1,4 @@
-library(ggplot2)
-library(reshape2)
-
+#' @export
 plot.ioaorkf = function(x,time = NULL,horizon = NULL,subset = NULL){
   
   if (is.null(horizon)){

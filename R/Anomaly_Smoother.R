@@ -18,11 +18,11 @@ Get_ancestor = function(x,x_list,kk){
   
   if (x$id == current_id - kk - 1){
     
-    return(list(which_one = old_x$which_one, comp = old_x$comp, horizon = 1))
+    return(list(which_type = old_x$which_type, component = old_x$component, horizon = 1))
     
   } else {
     
-    return(list(which_one = "None", comp = 0,horizon = 1))
+    return(list(which_type = "None", component = 0,horizon = 1))
     
   }
   
@@ -45,10 +45,6 @@ Anomaly_Smoother = function(x,time=NULL,horizon=NULL){
   if (is.null(horizon)){
     horizon = x$horizon - 1
   }
-  
-  print(time)
-  
-  print(horizon)
   
   smoothed_particle_list = lapply(as.list((horizon+1):(time+1)),x=x[["particles"]],Get_k_ancestors,kk = horizon)
   

@@ -1,34 +1,253 @@
+#' An innovative and additive outlier robust Kalman filter.
+#'
+#' @name IOAOKF 
+#'
+#' @description An Innovative and additive outlier robust Kalman filter, based on XXXXXX.
+#' This functions assumes that both the innovations and additions are potentially polluted by a heavy tailed process, which is approximated by a $t$-dstribution.
+#' To approximate the posterior, particles are samples for the precision (inverse variance) are drawn from a robust approximation to the posterior. COnditionally on those samples the classical Kalman updates are used.
+#' 
+#' 
+#' @param Y A list of matrices containing the observations to be filtered.
+#' @param mu_0 A matrix indicating the mean of the prior for the hidden states. 
+#' @param Sigma_0 A matrix indicating the Variance of the prior for the hidden states. It defaults to the limit of the variance of the Kalman filter.
+#' @param A A matrix giving the updates for the hidden states. 
+#' @param C A matrix mapping the hidden states to the observed states.
+#' @param Particles An integer giving the number of particles to be maintained at each step. More particles lead to more accuracy, but also require more memory and computational power. It should be at least p + q + 1, where p s the dimension of the obervations and q the dimension of the hidden states.
+#' @param Descendents An integer giving the number of descendents to be sampled for each of the possible anomalies. Increasing Descendents leads to higher accuracy but also higher memory and CPU requirements. The default value is 1.
+#' @param anom_add_prob A vector of probabilities with length equal to the dimension of the observations giving the probabilities of additive outiers in each of the components. It defaults to 1/10000.
+#' @param anom_inn_prob A vector of probabilities with length equal to the dimension of the hidden state giving the probabilities of innovative outiers in each of the components. It defaults to 1/10000.
+#' @param s A numeric giving the shape of the $t$-distribution to be considered. It defaults to 2. 
+#' @param epsilon A positive numeric giving the precision to which the limit of the covariance is to be computed. It defaults to 0.000001.
+#' @param horizon_matrix A matrix of 0s and 1s giving the horizon's at which innovative particles are to be resampled. It defaults to a k by nrow(Sigma_Inn) matrix, where k is the number of observations required for observability of the system.
+#' @return An S3 class. 
+#'
+#'
+#' @examples
+#' 
+#' 
 #' @export
-IOAOKF = function(Y,mu_0,Sigma_0=NULL,A,C,s,Number,Particles,Sigma_Add,Sigma_Inn,anom_add_prob,anom_inn_prob,epsilon=0.000001,horizon_matrix)
+IOAOKF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles,Descendents=1,s=2,anom_add_prob=NULL,anom_inn_prob=NULL,epsilon=0.000001,horizon_matrix=NULL)
 {
   
   p = nrow(Sigma_Add)
   q = nrow(Sigma_Inn)
   
+  Particles = as.integer(Particles)
+  
+  Descendents = as.integer(Descendents)
+  
+  if(Particles < 1){
+    stop("Particles must be positive!")
+  }
+  
+  if(Descendents < 1){
+    stop("Descendents must be positive!")
+  }
+  
+  if(Particles < p+q){
+    warning("Particles should be stricly greater than sum of the dimensions of the observed and hidden states.")
+  }
+  
+  for (ii in 1:length(Y)){
+    
+    Y[[ii]] = as.matrix(Y[[ii]])
+    
+    if (nrow( Y[[ii]]) != p){
+      stop("all observations must be of the same number of rows as Sigma_Add.")
+    }
+    if (ncol( Y[[ii]]) != 1){
+      stop("all observations must have exactly one column,")
+    }
+    
+  }
+  
+  mu_0 = as.matrix(mu_0)
+  
+  if (nrow(mu_0) != q){
+    stop("mu_0 must be of the same number of rows as Sigma_Add.")
+  }
+  
+  if (ncol(mu_0) != 1){
+    stop("mu_0 must have 1 column.")
+  }
+  
+  if (ncol(Sigma_Add) != p){
+    stop("Sigma_Add needs to be a square matrix.")
+  }
+  
+  if (ncol(Sigma_Inn) != q){
+    stop("Sigma_Inn needs to be a square matrix.")
+  }
+  
+  if (sum(Sigma_Add) != sum(abs(Sigma_Add))){
+    stop("All entried of Sigma_Add need to be positive")
+  }
+  
+  if (sum(Sigma_Add) != sum(diag(Sigma_Add))){
+    stop("Sigma_Add must be diagonal")
+  }
+  
+  if (sum(Sigma_Inn) != sum(abs(Sigma_Inn))){
+    stop("All entried of Sigma_Inn need to be positive")
+  }
+  
+  if (sum(Sigma_Inn) != sum(diag(Sigma_Inn))){
+    stop("Sigma_Inn must be diagonal")
+  }
+  
+  if (is.null(anom_add_prob)){
+    anom_add_prob = rep(0.0001,p)
+  } 
+  
+  if (length(anom_add_prob) == 1){
+    anom_add_prob = rep(anom_add_prob,p)
+  }
+  
+  if (length(anom_add_prob) != p){
+    stop("anom_add_prob must be of length equal to the dimensions of the observations")
+  }
+  
+  if (sum(anom_add_prob <= 0) + sum(anom_add_prob >= 1) >0){
+    stop("anom_add_prob must be contained in (0,1)" )
+  }
+  
+  if (is.null(anom_inn_prob)){
+    anom_inn_prob = rep(0.0001,q)
+  }
+  
+  if (length(anom_inn_prob) == 1){
+    anom_inn_prob = rep(anom_inn_prob,nrow(mu_0))
+  }
+  
+  if (length(anom_inn_prob) != q){
+    stop("anom_inn_prob must be of length equal to the dimensions of the hidden states")
+  }
+  
+  if (sum(anom_inn_prob <= 0) + sum(anom_inn_prob >= 1) >0){
+    stop("anom_inn_prob must be contained in (0,1)" )
+  }
+  
+  if (nrow(C) != p){
+    stop("C must have the same number of rows as the observations")
+  }
+  
+  if (ncol(C) != q){
+    stop("The number of columns of C must equal the dimensions of the hidden state")
+  }
+  
+  if (nrow(A) != q){
+    stop("A must have the same number of rows as the hidden states")
+  }
+  
+  if (ncol(A) != q){
+    stop("The number of columns of A must equal the dimensions of the hidden state")
+  }
+  
+  New_Matrix = C
+  
+  Full_Matrix = C
+  
+  Rank = 0
+  
+  repeat {
+    
+    Rank = Rank+1
+    
+    if(Rank > p+5) {
+      break
+    }
+    if( rankMatrix(Full_Matrix)  == p ) {
+      break
+    }
+    
+    New_Matrix = A %*% New_Matrix
+    
+    Full_Matrix = rbind(Full_Matrix,New_Matrix)
+    
+  }
+  
+  if (Rank >p){
+    stop("The system has to be observable.")
+  }
+  
+  Final_Sigma = Sigma_Limit(diag(1,nrow = q),C,A,Sigma_Inn,Sigma_Add,epsilon)
+  
+  if(is.null(Sigma_0)){
+    Sigma_0 = Final_Sigma
+  } 
+  
+  if (nrow(Sigma_0) != q){
+    stop("Sigma_0 must have the same number of rows as the hidden states.")
+  }
+  
+  if (ncol(Sigma_0) != q){
+    stop("The number of columns of Sigma_0 must equal the dimensions of the hidden state.")
+  }
+  
+  if (!isSymmetric(Sigma_0)){
+    stop("Sigma_0 must be positive definite.")
+  }
+  
+  if (sum(eigen(Sigma_0)$values <= 0) > 0 ){
+    stop("Sigma_0 must be positive definite.")
+  }
+  
+  if (epsilon <= 0){
+    stop ("epsilon must be greater than 0.")
+  }
+  
+  if (s <= 1){
+    stop ("s must be greater than 1.")
+  }
+  
+  
+  if (is.null(horizon_matrix)){
+    
+    horizon_matrix = matrix(1,nrow=Rank,ncol=q)
+    
+  }
+  
+  if (nrow(horizon_matrix) < Rank){
+    warning("The number of rows of horizon_matrix is less than the Rank of the system. This is not advised.")
+  }
+  
+  if (ncol(horizon_matrix) != q){
+    stop("The number of colums of horizon_matrix us equal the dimensio of the hidden states.")
+  }
+  
+  if (sum(horizon_matrix %in% c(0,1) < nrow(horizon_matrix)*ncol(horizon_matrix))){
+    stop("horizon_matrix must only contain zeros and ones.")
+  }
+  
+  Obs_Matrix = C
+  
+  for (ii in 1:nrow(horizon_matrix)){
+    
+    observable = 1 * (colSums(Obs_Matrix != 0) > 0)
+    
+    horizon_matrix[ii,] = horizon_matrix[ii,] * observable
+    
+    Obs_Matrix = A %*% Obs_Matrix
+  
+  }
+  
+  
   Y_Full_list     = Y
   Particle_Number = Particles
   
-  Num_Descendents = Number
+  Num_Descendents = Descendents
   Num_Particles   = Particles
   
   prob_add        = anom_add_prob
-  if (length(prob_add) == 1){
-    prob_add = rep(prob_add,nrow(Y[[1]]))
-  }
   
   prob_inn        = anom_inn_prob
-  if (length(prob_inn) == 1){
-    prob_inn = rep(prob_inn,nrow(mu_0))
-  }
   
   horizon = nrow(horizon_matrix)
   
   Number_of_resamples = colSums(horizon_matrix)
   
-  Final_Sigma = Sigma_Limit(Sigma,C,A,Sigma_Inn,Sigma_Add,epsilon)
-  
-  if(is.null(Sigma_0)){
-    Sigma_0 = Final_Sigma
+  if (sum(Number_of_resamples<0.5) > 0){
+    stop("horizon_matrix must contain at least one 1 in each column.")
   }
   
   to_sample = list()

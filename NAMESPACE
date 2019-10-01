@@ -1,4 +1,6 @@
 useDynLib(Robkf)
 import(RcppEigen)
+import(ggplot2)
 importFrom(Rcpp, evalCpp)
+importFrom(reshape2, melt)
 exportPattern("^[[:alpha:]]+")

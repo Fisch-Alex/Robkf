@@ -1,3 +1,4 @@
+#' @export
 summary.ioaorkf = function(x,time = NULL,horizon = NULL){
   
   if (is.null(time)){
@@ -5,7 +6,7 @@ summary.ioaorkf = function(x,time = NULL,horizon = NULL){
   }
   
   if (is.null(horizon)){
-    horizon = x$horizon - 1
+    horizon = x$horizon 
   }
   
   x = Anomaly_Smoother(x,time,horizon)
