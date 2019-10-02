@@ -36,11 +36,11 @@ IOAOKF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles,Descende
   
   Descendents = as.integer(Descendents)
   
-  if(Particles < 1){
+  if(Particles < 0.5){
     stop("Particles must be positive!")
   }
   
-  if(Descendents < 1){
+  if(Descendents < 0.5){
     stop("Descendents must be positive!")
   }
   
@@ -215,7 +215,7 @@ IOAOKF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles,Descende
     stop("The number of colums of horizon_matrix us equal the dimensio of the hidden states.")
   }
   
-  if (sum(horizon_matrix %in% c(0,1) < nrow(horizon_matrix)*ncol(horizon_matrix))){
+  if (sum(horizon_matrix %in% c(0,1)) < nrow(horizon_matrix)*ncol(horizon_matrix)){
     stop("horizon_matrix must only contain zeros and ones.")
   }
   
@@ -227,7 +227,7 @@ IOAOKF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles,Descende
     
     horizon_matrix[ii,] = horizon_matrix[ii,] * observable
     
-    Obs_Matrix = A %*% Obs_Matrix
+    Obs_Matrix = Obs_Matrix %*% A
   
   }
   

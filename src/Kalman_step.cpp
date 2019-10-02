@@ -36,7 +36,7 @@ const std::vector <double> & General_Weight_Inn, const std::vector <double> & Ge
 		for (Particle_iterator = History_iterator->begin(); Particle_iterator != History_iterator->end(); Particle_iterator++)
 		{
 
-			Candidates_addition = Get_Particle_Innovative_Descendents(*Particle_iterator, *Y_iterator, *C_iterator, sigma_hat, Sigma_Inn, Num_Descendents, s, General_Weight_Inn,*Sampling_iterator, horizon);
+			Candidates_addition = Get_Particle_Innovative_Descendents(*Particle_iterator, *Y_iterator, *C_iterator, sigma_hat, Sigma_Inn, Num_Descendents, s, General_Weight_Inn,*Sampling_iterator, ii+1);
 
 			Candidates.splice(Candidates.end(),Candidates_addition);
 
