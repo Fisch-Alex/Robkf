@@ -19,6 +19,10 @@ IOAOKF(Y, mu_0, Sigma_0 = NULL, A, C, Sigma_Add, Sigma_Inn, Particles,
 
 \item{C}{A matrix mapping the hidden states to the observed states.}
 
+\item{Sigma_Add}{A positive definite diagonal matrix giving the additive noise covariance.}
+
+\item{Sigma_Inn}{A positive definite diagonal matrix giving the innovative noise covariance.}
+
 \item{Particles}{An integer giving the number of particles to be maintained at each step. More particles lead to more accuracy, but also require more memory and computational power. It should be at least p + q + 1, where p s the dimension of the obervations and q the dimension of the hidden states.}
 
 \item{Descendents}{An integer giving the number of descendents to be sampled for each of the possible anomalies. Increasing Descendents leads to higher accuracy but also higher memory and CPU requirements. The default value is 1.}

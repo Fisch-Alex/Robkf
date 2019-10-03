@@ -12,6 +12,8 @@
 #' @param Sigma_0 A matrix indicating the Variance of the prior for the hidden states. It defaults to the limit of the variance of the Kalman filter.
 #' @param A A matrix giving the updates for the hidden states. 
 #' @param C A matrix mapping the hidden states to the observed states.
+#' @param Sigma_Add A positive definite diagonal matrix giving the additive noise covariance.
+#' @param Sigma_Inn  A positive definite diagonal matrix giving the innovative noise covariance.
 #' @param Particles An integer giving the number of particles to be maintained at each step. More particles lead to more accuracy, but also require more memory and computational power. It should be at least p + q + 1, where p s the dimension of the obervations and q the dimension of the hidden states.
 #' @param Descendents An integer giving the number of descendents to be sampled for each of the possible anomalies. Increasing Descendents leads to higher accuracy but also higher memory and CPU requirements. The default value is 1.
 #' @param anom_add_prob A vector of probabilities with length equal to the dimension of the observations giving the probabilities of additive outiers in each of the components. It defaults to 1/10000.
@@ -44,7 +46,7 @@ IOAOKF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles,Descende
     stop("Descendents must be positive!")
   }
   
-  if(Particles < p+q){
+  if(Particles < p+q+1){
     warning("Particles should be stricly greater than sum of the dimensions of the observed and hidden states.")
   }
   
