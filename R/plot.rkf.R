@@ -1,32 +1,22 @@
-#' Plot method for ioarkf
+#' Plot method for rkf
 #'
-#' @name plot.ioaorkf 
+#' @name plot.rkf 
 #' @description A function to plot the output of an IOAORKF filter. One can specify a time during the run for which the output should be displayed.
 #' @param x An ioaorkf object.
 #' @param time A positive integer giving the time at which the output is to be displayed. It defaults to the number of observations
-#' @param horizon A positive integer giving the smoothing horizon that is to be used. It must be at least equal to the number of rows of the horizonmatric used to obtain the ioaorkf object.
 #' @param subset A list of components of observations which are to be plotted.
+#' @param conf_level A probability between 0 and 1 giving the confidence level at which the series are to be tested against anomalies. It defaults to 0.95
 #' @return A ggplot object.
 #' @export
-plot.ioaorkf = function(x,time = NULL,horizon = NULL,subset = NULL){
-  
-  if (is.null(horizon)){
-    horizon = x$horizon
-  }
-  
-  horizon = as.integer(horizon)
-  
-  if (horizon < x$horizon - 1){
-    stop("horizon must be at least the number of rows of the horizonmatrix used to genereate x.")
-  }
+plot.rkf = function(x,time = NULL,subset = NULL,conf_level = 0.95){
   
   if (is.null(time)){
-    time = length(x[["particles"]]) - 1
+    time = length(x[["Y"]])
   }
   
   time = as.integer(time)
 
-  if (time > length(x[["particles"]]) - 1){
+  if (time > length(x[["Y"]])){
     stop("Time must be less than the number of observations.")
   }
   
@@ -34,15 +24,17 @@ plot.ioaorkf = function(x,time = NULL,horizon = NULL,subset = NULL){
     stop("Time must be positive.")
   }
   
-  horizon = min(horizon,time)
+  conf_level = as.numeric(conf_level)
   
-  if (horizon > 0){
-    x_new = Anomaly_Smoother(x,time,horizon)
-  } else{ 
-    x_new = x
+  if (conf_level >= 1){
+    stop("conf_level must be between 0 and 1")
   }
   
-  pre_out = Extractanomalies(x_new)
+  if (conf_level <= 0){
+    stop("conf_level must be between 0 and 1")
+  }
+  
+  pre_out = which(abs(Extract_all_anomalies(x)) > qnorm(conf_level) )
   
   mydaf= as.data.frame(t(Reduce(cbind,x[["Y"]])))
   n = nrow(mydaf)
@@ -64,7 +56,7 @@ plot.ioaorkf = function(x,time = NULL,horizon = NULL,subset = NULL){
   
   mydaf = mydaf[,c("x",paste("y",subset,sep=""))]
   
-  if (time < length(x[["particles"]]) - 1){
+  if (time < length(x[["Y"]])){
     
     molten_daf = molten.X<-melt(mydaf,id="x")
     
@@ -95,17 +87,25 @@ plot.ioaorkf = function(x,time = NULL,horizon = NULL,subset = NULL){
     
   }
   
-  if(length(pre_out$anomaly_locations)>0){
+  if(length(pre_out)>0){
     
-    for (ii in 1:length(pre_out$anomaly_locations)){
+    for (ii in 1:length(pre_out)){
       
-      out = out+geom_vline(xintercept = pre_out$anomaly_locations[ii],colour="blue",alpha = sum(pre_out$anomaly_inn_prob[ii,]))+ theme(legend.position="none")
+      if (x[["Type"]] == "IO"){
+        
+        out = out+geom_vline(xintercept = pre_out,colour="blue",alpha = 1)+ theme(legend.position="none")
+        
+      }
       
-      for (jj in 1:p){
+      if (x[["Type"]] == "AO"){
+      
+        for (jj in 1:p){
         
-        Point_Anomalies = pre_out$anomaly_locations[ii] + (jj-1)*n
+          Point_Anomalies = 1:p + (jj-1)*n
         
-        out = out + geom_point(data = molten_daf[Point_Anomalies,] ,colour="red", size=1.5, alpha = pre_out$anomaly_add_prob[ii,jj])
+          out = out + geom_point(data = pre_out ,colour="red", size=1.5, alpha = 1)
+        
+        }
         
       }
       

@@ -9,3 +9,19 @@ Sigma_Limit <- function(Sigma0, C, A, Sigma_Inn, Sigma_Add, epsilon) {
     .Call('_Robkf_Sigma_Limit', PACKAGE = 'Robkf', Sigma0, C, A, Sigma_Inn, Sigma_Add, epsilon)
 }
 
+aorkf_huber_list <- function(mu_init, Sigma_init, ys, A, b, C, d, R, Q, h) {
+    .Call('_Robkf_aorkf_huber_list', PACKAGE = 'Robkf', mu_init, Sigma_init, ys, A, b, C, d, R, Q, h)
+}
+
+aorkf_t_list <- function(mu_init, Sigma_init, ys, A, b, C, d, R, Q, s, epsilon) {
+    .Call('_Robkf_aorkf_t_list', PACKAGE = 'Robkf', mu_init, Sigma_init, ys, A, b, C, d, R, Q, s, epsilon)
+}
+
+iorkf_huber_list <- function(mu_init, Sigma_init, ys, A, b, C, d, R, Q, h) {
+    .Call('_Robkf_iorkf_huber_list', PACKAGE = 'Robkf', mu_init, Sigma_init, ys, A, b, C, d, R, Q, h)
+}
+
+iorkf_huber_matrix <- function(mu_old, Sigma_old, y, A, b, C, d, R, Q, h) {
+    .Call('_Robkf_iorkf_huber_matrix', PACKAGE = 'Robkf', mu_old, Sigma_old, y, A, b, C, d, R, Q, h)
+}
+

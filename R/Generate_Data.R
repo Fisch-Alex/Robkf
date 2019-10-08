@@ -88,19 +88,19 @@ Generate_Data = function(n,A,C,Sigma_Add,Sigma_Inn,mu_0 = NULL,  anomaly_loc = i
   }
   
   if (is.null(anomaly_strength)){
-    anomaly_strength = rep(1000,length(anomaly_component))
+    anomaly_strength = rep(1000,length(anomaly_comp))
   }
   
-  if (length(anomaly_strength) != length(anomaly_component)){
-    stop("anomaly_strength, anomaly_component, anomaly_type, and anomaly_loc must be of the same length")
+  if (length(anomaly_strength) != length(anomaly_comp)){
+    stop("anomaly_strength, anomaly_comp, anomaly_type, and anomaly_loc must be of the same length")
   }
   
   if (length(anomaly_strength) != length(anomaly_type)){
-    stop("anomaly_strength, anomaly_component, anomaly_type, and anomaly_loc must be of the same length")
+    stop("anomaly_strength, anomaly_comp, anomaly_type, and anomaly_loc must be of the same length")
   }
   
   if (length(anomaly_strength) != length(anomaly_loc)){
-    stop("anomaly_strength, anomaly_component, anomaly_type, and anomaly_loc must be of the same length")
+    stop("anomaly_strength, anomaly_comp, anomaly_type, and anomaly_loc must be of the same length")
   }
   
   anomaly_loc = as.integer(anomaly_loc)
@@ -113,17 +113,17 @@ Generate_Data = function(n,A,C,Sigma_Add,Sigma_Inn,mu_0 = NULL,  anomaly_loc = i
     stop("The entries of anomaly_loc must be between 1 and n")
   }
   
-  if (sum(anomaly_type %in% c("Add,Inn")) < length(anomaly_type)){
-    stop("The entries of anomaly_type must be between Add or Inn")
+  if (sum(anomaly_type %in% c("Add","Inn")) < length(anomaly_type)){
+    stop("The entries of anomaly_type must be either Add or Inn")
   }
   
   anomaly_comp = as.integer(anomaly_comp)
   
-  if (sum(anomaly_comp[which](anomaly_type == "Add") %in% 1:p) != sum(anomaly_type == "Add")){
+  if (sum(anomaly_comp[which(anomaly_type == "Add")] %in% 1:p) != sum(anomaly_type == "Add")){
     stop("Out of bounds for anomaly_comp ")
   }
   
-  if (sum(anomaly_comp[which](anomaly_type == "Inn") %in% 1:q) != sum(anomaly_type == "Inn")){
+  if (sum(anomaly_comp[which(anomaly_type == "Inn")] %in% 1:q) != sum(anomaly_type == "Inn")){
     stop("Out of bounds for anomaly_comp ")
   }
   

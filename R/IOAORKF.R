@@ -1,6 +1,6 @@
 #' An innovative and additive outlier robust Kalman filter.
 #'
-#' @name IOAOKF 
+#' @name IOAORKF 
 #'
 #' @description An Innovative and additive outlier robust Kalman filter, based on XXXXXX.
 #' This functions assumes that both the innovations and additions are potentially polluted by a heavy tailed process, which is approximated by a $t$-dstribution.
@@ -21,14 +21,36 @@
 #' @param s A numeric giving the shape of the $t$-distribution to be considered. It defaults to 2. 
 #' @param epsilon A positive numeric giving the precision to which the limit of the covariance is to be computed. It defaults to 0.000001.
 #' @param horizon_matrix A matrix of 0s and 1s giving the horizon's at which innovative particles are to be resampled. It defaults to a k by nrow(Sigma_Inn) matrix, where k is the number of observations required for observability of the system.
-#' @return An S3 class. 
+#' @return An ioaorkf S3 class. 
 #'
 #'
 #' @examples
 #' 
+#' library(Robkf)
+#' 
+#' set.seed(2018)
+#' 
+#' A = diag(2)*0.99
+#' A[1,2] = -0.05
+#' C = matrix(c(10,0.1),nrow=1)
+#' mu = matrix(c(0,0),nrow=2)
+#' Sigma_Inn = diag(c(1,0.01)*0.00001,nrow=2)
+#' Sigma_Add = diag(c(1)*0.1,nrow=1)
+#' 
+#' Y_list = Generate_Data(100,A,C,Sigma_Add,Sigma_Inn, mu_0 = mu,  anomaly_loc = c(10,30,50), 
+#'                       anomaly_type = c("Inn","Add","Inn"), 
+#'                       anomaly_comp = c(1,1,2),  anomaly_strength = c(400,-10,3000))
+#'                       
+#' horizon_matrix = matrix(1,nrow = 3 ,ncol = 2)
+#' 
+#' Second_Particle_list_new = IOAORKF(Y_list,mu,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles=20,horizon_matrix=horizon_matrix)
+#' 
+#' plot(Second_Particle_list_new)
+#' summary(Second_Particle_list_new)
+#' 
 #' 
 #' @export
-IOAOKF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles,Descendents=1,s=2,anom_add_prob=NULL,anom_inn_prob=NULL,epsilon=0.000001,horizon_matrix=NULL)
+IOAORKF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles,Descendents=1,s=2,anom_add_prob=NULL,anom_inn_prob=NULL,epsilon=0.000001,horizon_matrix=NULL)
 {
   
   p = nrow(Sigma_Add)
@@ -172,6 +194,10 @@ IOAOKF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles,Descende
     stop("The system has to be observable.")
   }
   
+  if (epsilon <= 0){
+    stop ("epsilon must be greater than 0.")
+  }
+  
   Final_Sigma = Sigma_Limit(diag(1,nrow = q),C,A,Sigma_Inn,Sigma_Add,epsilon)
   
   if(is.null(Sigma_0)){
@@ -192,10 +218,6 @@ IOAOKF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles,Descende
   
   if (sum(eigen(Sigma_0)$values <= 0) > 0 ){
     stop("Sigma_0 must be positive definite.")
-  }
-  
-  if (epsilon <= 0){
-    stop ("epsilon must be greater than 0.")
   }
   
   if (s <= 1){
