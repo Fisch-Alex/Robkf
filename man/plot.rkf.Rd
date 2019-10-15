@@ -4,18 +4,20 @@
 \alias{plot.rkf}
 \title{Plot method for rkf}
 \usage{
-\method{plot}{rkf}(x, time = NULL, subset = NULL)
+\method{plot}{rkf}(x, time = NULL, subset = NULL, conf_level = 0.95)
 }
 \arguments{
-\item{x}{An ioaorkf object.}
+\item{x}{An rkf object.}
 
-\item{time}{A positive integer giving the time at which the output is to be displayed. It defaults to the number of observations}
+\item{time}{A positive integer giving the time at which the output is to be displayed. It defaults to the number of observations.}
 
-\item{subset}{A list of components of observations which are to be plotted.}
+\item{subset}{A list of integers indicating the components of observations which are to be plotted.}
+
+\item{conf_level}{A probability between 0 and 1 giving the confidence level at which the series are to be tested against anomalies. It defaults to 0.95.}
 }
 \value{
 A ggplot object.
 }
 \description{
-A function to plot the output of an IOAORKF filter. One can specify a time during the run for which the output should be displayed.
+A function to plot the output produced by \code{\link{AORKF_t}}, \code{\link{AORKF_huber}}, or \code{\link{IORKF_huber}}. One can specify a time during the run for which the output should be displayed.
 }

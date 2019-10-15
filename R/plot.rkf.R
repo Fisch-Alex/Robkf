@@ -1,11 +1,11 @@
 #' Plot method for rkf
 #'
 #' @name plot.rkf 
-#' @description A function to plot the output of an IOAORKF filter. One can specify a time during the run for which the output should be displayed.
-#' @param x An ioaorkf object.
-#' @param time A positive integer giving the time at which the output is to be displayed. It defaults to the number of observations
-#' @param subset A list of components of observations which are to be plotted.
-#' @param conf_level A probability between 0 and 1 giving the confidence level at which the series are to be tested against anomalies. It defaults to 0.95
+#' @description A function to plot the output produced by \code{\link{AORKF_t}}, \code{\link{AORKF_huber}}, or \code{\link{IORKF_huber}}. One can specify a time during the run for which the output should be displayed.
+#' @param x An rkf object.
+#' @param time A positive integer giving the time at which the output is to be displayed. It defaults to the number of observations.
+#' @param subset A list of integers indicating the components of observations which are to be plotted.
+#' @param conf_level A probability between 0 and 1 giving the confidence level at which the series are to be tested against anomalies. It defaults to 0.95.
 #' @return A ggplot object.
 #' @export
 plot.rkf = function(x,time = NULL,subset = NULL,conf_level = 0.95){
@@ -101,9 +101,9 @@ plot.rkf = function(x,time = NULL,subset = NULL,conf_level = 0.95){
       
         for (jj in 1:p){
         
-          Point_Anomalies = 1:p + (jj-1)*n
+          Point_Anomalies = pre_out[ii] + (jj-1)*n
         
-          out = out + geom_point(data = pre_out ,colour="red", size=1.5, alpha = 1)
+          out = out + geom_point(data = molten_daf[Point_Anomalies,] ,colour="red", size=1.5, alpha = 1)
         
         }
         

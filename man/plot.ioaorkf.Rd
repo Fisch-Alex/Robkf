@@ -13,7 +13,7 @@
 
 \item{horizon}{A positive integer giving the smoothing horizon that is to be used. It must be at least equal to the number of rows of the horizonmatric used to obtain the ioaorkf object.}
 
-\item{subset}{A list of components of observations which are to be plotted.}
+\item{subset}{A list of integers indicating the components of observations which are to be plotted.}
 }
 \value{
 A ggplot object.

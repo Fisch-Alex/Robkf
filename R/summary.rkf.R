@@ -1,10 +1,10 @@
 #' Summary method for rkf
 #'
 #' @name summary.rkf 
-#' @description A function to summarise the output of an IOAORKF filter. One can specify a time during the run for which the output should be displayed.
-#' @param x An ioaorkf object.
-#' @param time A positive integer giving the time at which the output is to be displayed. It defaults to the number of observations
-#' @param conf_level A probability between 0 and 1 giving the confidence level at which the series are to be tested against anomalies. It defaults to 0.95
+#' @description A function to summarise the output produced by \code{\link{AORKF_t}}, \code{\link{AORKF_huber}}, or \code{\link{IORKF_huber}}. One can specify a time during the run for which the output should be displayed.
+#' @param x An rkf object.
+#' @param time A positive integer giving the time at which the output is to be displayed. It defaults to the number of observations.
+#' @param conf_level A probability between 0 and 1 giving the confidence level at which the series are to be tested against anomalies. It defaults to 0.95.
 #' @return A ggplot object.
 #' @export
 summary.rkf = function(x,time = NULL,conf_level = 0.95){
@@ -35,15 +35,15 @@ summary.rkf = function(x,time = NULL,conf_level = 0.95){
   
   scores = abs(Extract_all_anomalies(x))
   
-  preout = which(scores> qnorm(conf_level))
+  pre_out = which(scores> qnorm(conf_level))
   
   if (length(pre_out) == 0){
     
-    cat(paste("At time",time,"out of", length(x_new[["Y"]]) , "no anomalies have been detected"))
+    cat(paste("At time",time,"out of", length(x[["Y"]]) , "no anomalies have been detected"))
     
   } else {
     
-    cat(paste("At time",time,"out of", length(x_new[["Y"]]) , "the anomalies have been inferred at the following times:"))
+    cat(paste("At time",time,"out of", length(x[["Y"]]) , "the anomalies have been inferred at the following times:"))
     
     cat("\n")
     

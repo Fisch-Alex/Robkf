@@ -2,7 +2,7 @@
 #'
 #' @name Generate_Data 
 #'
-#' @description This function simulates data from a Kalman model. It allows the user to add innovative and additive anomalies. 
+#' @description This function simulates data obeying a Kalman model whilst alloiwng the user to add innovative and additive anomalies. 
 #' 
 #' @param n A positive integer giving the number of observations desired
 #' @param A A matrix giving the updates for the hidden states. 
@@ -11,10 +11,10 @@
 #' @param Sigma_Inn  A positive definite diagonal matrix giving the innovative noise covariance.
 #' @param mu_0 A matrix indicating the mean of the prior for the hidden states. It defaults to a zero-vector.
 #' @param anomaly_loc A vector of integers giving the locations of anomalies.
-#' @param anomaly_type A vector of strings, either "Add" or "Inn" defining wether the anomaly is additive or innovative.
+#' @param anomaly_type A vector of strings, either "Add" or "Inn" indicating whether the anomaly is additive or innovative.
 #' @param anomaly_comp A vector of integers giving the component affected by the anomalies.
 #' @param anomaly_strength  A vector of numerics givig the strength of the anomalies (in sigmas).
-#' @return A list of matrices each corresponding to an observation. 
+#' @return A list of matrices, each corresponding to an observation. 
 #'
 #'
 #' @examples

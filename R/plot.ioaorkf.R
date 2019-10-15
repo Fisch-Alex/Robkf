@@ -5,7 +5,7 @@
 #' @param x An ioaorkf object.
 #' @param time A positive integer giving the time at which the output is to be displayed. It defaults to the number of observations
 #' @param horizon A positive integer giving the smoothing horizon that is to be used. It must be at least equal to the number of rows of the horizonmatric used to obtain the ioaorkf object.
-#' @param subset A list of components of observations which are to be plotted.
+#' @param subset A list of integers indicating the components of observations which are to be plotted.
 #' @return A ggplot object.
 #' @export
 plot.ioaorkf = function(x,time = NULL,horizon = NULL,subset = NULL){

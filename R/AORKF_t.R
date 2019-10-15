@@ -2,9 +2,9 @@
 #'
 #' @name AORKF_t 
 #'
-#' @description An additive outlier robust Kalman filter, based on XXXXXX.
-#' This functions assumes that the additions are potentially polluted by a heavy tailed process, which is approximated by a $t$-dstribution.
-#' Variational inference is used to approximate the posterior 
+#' @description An additive outlier robust Kalman filter, based on the work by Agamennoni et al. (2018).
+#' This functions assumes that the additions are potentially polluted by a heavy tailed process, which is approximated by a t-dstribution.
+#' Variational inference is used to approximate the posterior.
 #' 
 #' @param Y A list of matrices containing the observations to be filtered.
 #' @param mu_0 A matrix indicating the mean of the prior for the hidden states. 
@@ -13,16 +13,32 @@
 #' @param C A matrix mapping the hidden states to the observed states.
 #' @param Sigma_Add A positive definite matrix giving the additive noise covariance.
 #' @param Sigma_Inn  A positive definite matrix giving the innovative noise covariance.
-#' @param s A numeric giving the shape of the $t$-distribution to be considered. It defaults to 2. 
+#' @param s A numeric giving the shape of the t-distribution to be considered. It defaults to 2. 
 #' @param epsilon A positive numeric giving the precision to which the limit of the covariance, and the variational inferences is to be computed. It defaults to 0.000001.
 #' @return An rkf S3 class. 
-#'
+#' @references \insertRef{agamennoni2011outlier}{Robkf}
 #'
 #' @examples
+#' library(Robkf)
 #' 
+#' set.seed(2019)
+#'
+#' A = matrix(c(1), nrow = 1, ncol = 1)
+#' C = matrix(c(1), nrow = 1, ncol = 1)
+#'
+#' Sigma_Inn = diag(1,1)*0.01
+#' Sigma_Add = diag(1,1)
+#'
+#' mu_0 = matrix(0,nrow=1,ncol=1)
+#' 
+#' Y_list = Generate_Data(1000,A,C,Sigma_Add,Sigma_Inn,mu_0,anomaly_loc = c(100,400,700),anomaly_type = c("Add","Add","Add"),anomaly_comp = c(1,1,1),anomaly_strength = c(10,10,10))
+#' 
+#' Output = AORKF_t(Y_list,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn)
+#' 
+#' plot(Output,conf_level = 0.9999)
 #' 
 #' @export
-AORKF_t = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,s=2,epsilon)
+AORKF_t = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,s=2,epsilon=0.000001)
 {
   
   p = nrow(Sigma_Add)
@@ -154,7 +170,7 @@ AORKF_t = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,s=2,epsilon)
   b = matrix(rep(0,q),ncol=1)
   d = matrix(rep(0,p),ncol=1)
   
-  algo_output  = aorkf_t_list(mu_init,Sigma_init,ys_list,A,b,C,d,Sigma_Add,Sigma_Inn,s,epsilon)
+  algo_output  = aorkf_t_list(mu_0,Sigma_0,Y,A,b,C,d,Sigma_Add,Sigma_Inn,s,epsilon)
   
   output = list()
   

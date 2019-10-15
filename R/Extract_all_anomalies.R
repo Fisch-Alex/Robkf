@@ -21,15 +21,15 @@ Extract_all_anomalies = function(x){
     
     add[["Y"]]     = x[["Y"]][[ii]]
     
-    add[["x"]]     = x[["States"]][[ii]][[1]]
+    add[["mu"]]    = x[["States"]][[ii]][[1]]
  
-    add[["Sigma"]] = x[["States"]][[ii]][[1]]
+    add[["Sigma"]] = x[["States"]][[ii]][[2]]
        
     new_list[[ii]] = add
     
   }
   
-  scores = unlist(lapply(new_list,A=x[["A"]],C=x[["C"]],Sigma_Add=x[["Sigma_Add"]],Sigma_Inn=x[["Sigma_Inn"]]))
+  scores = unlist(lapply(new_list,Extract_anomaly,A=x[["A"]],C=x[["C"]],Sigma_Add=x[["Sigma_Add"]],Sigma_Inn=x[["Sigma_Inn"]]))
   
   return(scores)
   

@@ -1,8 +1,8 @@
 #' Print method for rkf
 #'
 #' @name print.rkf 
-#' @description A function to print the output of an IOAORKF filter. One can specify a time during the run for which the output should be displayed.
-#' @param x An ioaorkf object.
+#' @description A function to print the output produced by \code{\link{AORKF_t}}, \code{\link{AORKF_huber}}, or \code{\link{IORKF_huber}}. One can specify a time during the run for which the output should be displayed.
+#' @param x An rkf object.
 #' @param time A positive integer giving the time at which the output is to be displayed. It defaults to the number of observations.
 #' @param conf_level A probability between 0 and 1 giving the confidence level at which the series are to be tested against anomalies. It defaults to 0.95.
 #' @return A ggplot object.
@@ -35,9 +35,9 @@ print.rkf = function(x,time = NULL,conf_level = 0.95){
   
   scores = abs(Extract_all_anomalies(x))
   
-  preout = which(scores> qnorm(conf_level))
+  pre_out = which(scores> qnorm(conf_level))
   
-  probs = dnorm(scores[preout])
+  probs = dnorm(scores[pre_out])
   
   if (length(pre_out) == 0){
     

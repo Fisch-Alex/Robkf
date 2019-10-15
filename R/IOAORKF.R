@@ -1,26 +1,26 @@
-#' An innovative and additive outlier robust Kalman filter.
+#' An innovative and additive outlier robust Kalman filter
 #'
 #' @name IOAORKF 
 #'
-#' @description An Innovative and additive outlier robust Kalman filter, based on XXXXXX.
-#' This functions assumes that both the innovations and additions are potentially polluted by a heavy tailed process, which is approximated by a $t$-dstribution.
-#' To approximate the posterior, particles are samples for the precision (inverse variance) are drawn from a robust approximation to the posterior. COnditionally on those samples the classical Kalman updates are used.
+#' @description An innovative and additive outlier robust Kalman filter, based on Fisch et al. (2020).
+#' This functions assumes that both the innovations and additions are potentially polluted by a heavy tailed process, which is approximated by a t-dstribution.
+#' To approximate the posterior, particles for the precision (inverse variance) are sampled using a robust approximation to the posterior. Conditionally on those samples, the classical Kalman updates are used.
 #' 
 #' 
 #' @param Y A list of matrices containing the observations to be filtered.
 #' @param mu_0 A matrix indicating the mean of the prior for the hidden states. 
-#' @param Sigma_0 A matrix indicating the Variance of the prior for the hidden states. It defaults to the limit of the variance of the Kalman filter.
+#' @param Sigma_0 A matrix indicating the variance of the prior for the hidden states. It defaults to the limit of the variance of the Kalman filter.
 #' @param A A matrix giving the updates for the hidden states. 
 #' @param C A matrix mapping the hidden states to the observed states.
 #' @param Sigma_Add A positive definite diagonal matrix giving the additive noise covariance.
 #' @param Sigma_Inn  A positive definite diagonal matrix giving the innovative noise covariance.
-#' @param Particles An integer giving the number of particles to be maintained at each step. More particles lead to more accuracy, but also require more memory and computational power. It should be at least p + q + 1, where p s the dimension of the obervations and q the dimension of the hidden states.
+#' @param Particles An integer giving the number of particles to be maintained at each step. More particles lead to more accuracy, but also require more memory and CPU time. The parameter should be at least p + q + 1, where p s the dimension of the obervations and q the dimension of the hidden states.
 #' @param Descendents An integer giving the number of descendents to be sampled for each of the possible anomalies. Increasing Descendents leads to higher accuracy but also higher memory and CPU requirements. The default value is 1.
 #' @param anom_add_prob A vector of probabilities with length equal to the dimension of the observations giving the probabilities of additive outiers in each of the components. It defaults to 1/10000.
 #' @param anom_inn_prob A vector of probabilities with length equal to the dimension of the hidden state giving the probabilities of innovative outiers in each of the components. It defaults to 1/10000.
-#' @param s A numeric giving the shape of the $t$-distribution to be considered. It defaults to 2. 
+#' @param s A numeric giving the shape of the t-distribution to be considered. It defaults to 2. 
 #' @param epsilon A positive numeric giving the precision to which the limit of the covariance is to be computed. It defaults to 0.000001.
-#' @param horizon_matrix A matrix of 0s and 1s giving the horizon's at which innovative particles are to be resampled. It defaults to a k by nrow(Sigma_Inn) matrix, where k is the number of observations required for observability of the system.
+#' @param horizon_matrix A matrix of 0s and 1s giving the horizon's at which innovative particles are to be resampled. It defaults to a k by q matrix, where k is the number of observations required for observability of the system and q is the dimension of the hidden states.
 #' @return An ioaorkf S3 class. 
 #'
 #'

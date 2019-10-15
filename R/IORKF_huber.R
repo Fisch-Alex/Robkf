@@ -2,9 +2,9 @@
 #'
 #' @name IORKF_huber
 #'
-#' @description An innovative outlier robust Kalman filter, based on XXXXXX.
+#' @description An innovative outlier robust Kalman filter, based on the work by Ruckdeschel et al. (2014).
 #' This functions assumes that the innovations are potentially polluted by a heavy tailed process.
-#' The update equations are based on huberisation.
+#' The update equations are made robust to these via huberisation.
 #' 
 #' @param Y A list of matrices containing the observations to be filtered.
 #' @param mu_0 A matrix indicating the mean of the prior for the hidden states. 
@@ -16,13 +16,29 @@
 #' @param h A numeric giving the huber threshold. It defaults to 2. 
 #' @param epsilon A positive numeric giving the precision to which the limit of the covariance is to be computed. It defaults to 0.000001.
 #' @return An rkf S3 class. 
-#'
+#' @references \insertRef{ruckdeschel2014robust}{Robkf}
 #'
 #' @examples
+#' library(Robkf)
 #' 
+#' set.seed(2019)
+#'
+#' A = matrix(c(1), nrow = 1, ncol = 1)
+#' C = matrix(c(1), nrow = 1, ncol = 1)
+#'
+#' Sigma_Inn = diag(1,1)*0.01
+#' Sigma_Add = diag(1,1)
+#'
+#' mu_0 = matrix(0,nrow=1,ncol=1)
+#'
+#' Y_list = Generate_Data(1000,A,C,Sigma_Add,Sigma_Inn,mu_0,anomaly_loc = c(100,400,700),anomaly_type = c("Inn","Inn","Inn"),anomaly_comp = c(1,1,1),anomaly_strength = c(50,80,-100))
+#'
+#' Output = IORKF_huber(Y_list,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,h=2)
+#'
+#' plot(Output,conf_level = 0.9999)
 #' 
 #' @export
-IORKF_huber = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,h=2,epsilon)
+IORKF_huber = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,h=2,epsilon=0.000001)
 {
   
   p = nrow(Sigma_Add)
@@ -154,7 +170,7 @@ IORKF_huber = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,h=2,epsilon)
   b = matrix(rep(0,q),ncol=1)
   d = matrix(rep(0,p),ncol=1)
   
-  algo_output  = iorkf_huber_list(mu_init,Sigma_init,ys_list,A,b,C,d,Sigma_Add,Sigma_Inn,h)
+  algo_output  = iorkf_huber_list(mu_0,Sigma_0,Y,A,b,C,d,Sigma_Add,Sigma_Inn,h)
   
   output = list()
   

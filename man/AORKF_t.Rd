@@ -5,7 +5,7 @@
 \title{An additive outlier robust Kalman filter.}
 \usage{
 AORKF_t(Y, mu_0, Sigma_0 = NULL, A, C, Sigma_Add, Sigma_Inn, s = 2,
-  epsilon)
+  epsilon = 1e-06)
 }
 \arguments{
 \item{Y}{A list of matrices containing the observations to be filtered.}
@@ -22,7 +22,7 @@ AORKF_t(Y, mu_0, Sigma_0 = NULL, A, C, Sigma_Add, Sigma_Inn, s = 2,
 
 \item{Sigma_Inn}{A positive definite matrix giving the innovative noise covariance.}
 
-\item{s}{A numeric giving the shape of the $t$-distribution to be considered. It defaults to 2.}
+\item{s}{A numeric giving the shape of the t-distribution to be considered. It defaults to 2.}
 
 \item{epsilon}{A positive numeric giving the precision to which the limit of the covariance, and the variational inferences is to be computed. It defaults to 0.000001.}
 }
@@ -30,11 +30,30 @@ AORKF_t(Y, mu_0, Sigma_0 = NULL, A, C, Sigma_Add, Sigma_Inn, s = 2,
 An rkf S3 class.
 }
 \description{
-An additive outlier robust Kalman filter, based on XXXXXX.
-This functions assumes that the additions are potentially polluted by a heavy tailed process, which is approximated by a $t$-dstribution.
-Variational inference is used to approximate the posterior
+An additive outlier robust Kalman filter, based on the work by Agamennoni et al. (2018).
+This functions assumes that the additions are potentially polluted by a heavy tailed process, which is approximated by a t-dstribution.
+Variational inference is used to approximate the posterior.
 }
 \examples{
+library(Robkf)
 
+set.seed(2019)
 
+A = matrix(c(1), nrow = 1, ncol = 1)
+C = matrix(c(1), nrow = 1, ncol = 1)
+
+Sigma_Inn = diag(1,1)*0.01
+Sigma_Add = diag(1,1)
+
+mu_0 = matrix(0,nrow=1,ncol=1)
+
+Y_list = Generate_Data(1000,A,C,Sigma_Add,Sigma_Inn,mu_0,anomaly_loc = c(100,400,700),anomaly_type = c("Add","Add","Add"),anomaly_comp = c(1,1,1),anomaly_strength = c(10,10,10))
+
+Output = AORKF_t(Y_list,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn)
+
+plot(Output,conf_level = 0.9999)
+
+}
+\references{
+\insertRef{agamennoni2011outlier}{Robkf}
 }

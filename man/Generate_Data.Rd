@@ -23,17 +23,17 @@ Generate_Data(n, A, C, Sigma_Add, Sigma_Inn, mu_0 = NULL,
 
 \item{anomaly_loc}{A vector of integers giving the locations of anomalies.}
 
-\item{anomaly_type}{A vector of strings, either "Add" or "Inn" defining wether the anomaly is additive or innovative.}
+\item{anomaly_type}{A vector of strings, either "Add" or "Inn" indicating whether the anomaly is additive or innovative.}
 
 \item{anomaly_comp}{A vector of integers giving the component affected by the anomalies.}
 
 \item{anomaly_strength}{A vector of numerics givig the strength of the anomalies (in sigmas).}
 }
 \value{
-A list of matrices each corresponding to an observation.
+A list of matrices, each corresponding to an observation.
 }
 \description{
-This function simulates data from a Kalman model. It allows the user to add innovative and additive anomalies.
+This function simulates data obeying a Kalman model whilst alloiwng the user to add innovative and additive anomalies.
 }
 \examples{
 

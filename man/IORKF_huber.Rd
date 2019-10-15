@@ -5,7 +5,7 @@
 \title{An innovative outlier robust Kalman filter.}
 \usage{
 IORKF_huber(Y, mu_0, Sigma_0 = NULL, A, C, Sigma_Add, Sigma_Inn, h = 2,
-  epsilon)
+  epsilon = 1e-06)
 }
 \arguments{
 \item{Y}{A list of matrices containing the observations to be filtered.}
@@ -30,11 +30,30 @@ IORKF_huber(Y, mu_0, Sigma_0 = NULL, A, C, Sigma_Add, Sigma_Inn, h = 2,
 An rkf S3 class.
 }
 \description{
-An innovative outlier robust Kalman filter, based on XXXXXX.
+An innovative outlier robust Kalman filter, based on the work by Ruckdeschel et al. (2014).
 This functions assumes that the innovations are potentially polluted by a heavy tailed process.
-The update equations are based on huberisation.
+The update equations are made robust to these via huberisation.
 }
 \examples{
+library(Robkf)
 
+set.seed(2019)
 
+A = matrix(c(1), nrow = 1, ncol = 1)
+C = matrix(c(1), nrow = 1, ncol = 1)
+
+Sigma_Inn = diag(1,1)*0.01
+Sigma_Add = diag(1,1)
+
+mu_0 = matrix(0,nrow=1,ncol=1)
+
+Y_list = Generate_Data(1000,A,C,Sigma_Add,Sigma_Inn,mu_0,anomaly_loc = c(100,400,700),anomaly_type = c("Inn","Inn","Inn"),anomaly_comp = c(1,1,1),anomaly_strength = c(50,80,-100))
+
+Output = IORKF_huber(Y_list,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,h=2)
+
+plot(Output,conf_level = 0.9999)
+
+}
+\references{
+\insertRef{ruckdeschel2014robust}{Robkf}
 }
