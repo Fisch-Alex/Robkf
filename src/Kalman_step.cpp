@@ -59,7 +59,6 @@ const std::vector <double> & General_Weight_Inn, const std::vector <double> & Ge
 
 	}
 
-
 	Output = Subsample_Particles(Candidates,Particle_Number);
 
 	int position = 0;

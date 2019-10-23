@@ -177,20 +177,20 @@ IOAORKF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles,Descend
     
     Rank = Rank+1
     
-    if(Rank > p+5) {
+    if(Rank > q+5) {
       break
     }
-    if( rankMatrix(Full_Matrix)  == p ) {
+    if( rankMatrix(Full_Matrix)  == q ) {
       break
     }
     
-    New_Matrix = A %*% New_Matrix
+    New_Matrix = New_Matrix %*% A
     
     Full_Matrix = rbind(Full_Matrix,New_Matrix)
     
   }
   
-  if (Rank >p){
+  if (Rank >q){
     stop("The system has to be observable.")
   }
   
@@ -236,7 +236,7 @@ IOAORKF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles,Descend
   }
   
   if (ncol(horizon_matrix) != q){
-    stop("The number of colums of horizon_matrix us equal the dimensio of the hidden states.")
+    stop("The number of columns of horizon_matrix must be equal to the dimension of the hidden states.")
   }
   
   if (sum(horizon_matrix %in% c(0,1)) < nrow(horizon_matrix)*ncol(horizon_matrix)){
@@ -253,6 +253,14 @@ IOAORKF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles,Descend
     
     Obs_Matrix = Obs_Matrix %*% A
   
+  } 
+  
+  if (nrow(horizon_matrix) > length(Y)){
+    
+    warning("the number of rows horizon_matrix shouldn't exceed the number of observations")
+    
+    horizon_matrix = matrix(horizon_matrix[1:length(Y),],nrow=length(Y))
+    
   }
   
   
@@ -329,23 +337,27 @@ IOAORKF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles,Descend
     
   } 
   
-  for (jj in (nrow(horizon_matrix)+1):length(Y_Full_list) ){
+  if (length(Y_Full_list) > nrow(horizon_matrix)){
+  
+    for (jj in (nrow(horizon_matrix)+1):length(Y_Full_list) ){
     
-    Considered_Y = Y_Full_list[jj:(jj-nrow(horizon_matrix)+1)]
+      Considered_Y = Y_Full_list[jj:(jj-nrow(horizon_matrix)+1)]
     
-    Full_Y_list = list()
+      Full_Y_list = list()
     
-    New_Y = matrix(0,ncol=1,nrow=0)
+      New_Y = matrix(0,ncol=1,nrow=0)
     
-    for (ii in 1:length(Considered_Y)){
+      for (ii in 1:length(Considered_Y)){
       
-      New_Y = rbind(Considered_Y[[ii]],New_Y)
+        New_Y = rbind(Considered_Y[[ii]],New_Y)
       
-      Full_Y_list[[ii]] = New_Y
+        Full_Y_list[[ii]] = New_Y
+      
+      }
+    
+      Y_expanded[[jj]] = Full_Y_list
       
     }
-    
-    Y_expanded[[jj]] = Full_Y_list
     
   }
   

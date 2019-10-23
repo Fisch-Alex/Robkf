@@ -26,7 +26,7 @@ const int & horizon, const std::vector <double> & prob_inn, const std::vector <d
 
 	std::list < std::list < Eigen::MatrixXd > > State;
 
-		for (it_List = it_List_of_List->begin(); it_List != it_List_of_List->end(); it_List++)
+	for (it_List = it_List_of_List->begin(); it_List != it_List_of_List->end(); it_List++)
 		{
 
 			std::list < Eigen::MatrixXd > Particle;

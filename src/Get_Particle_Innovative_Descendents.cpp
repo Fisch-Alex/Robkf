@@ -62,9 +62,6 @@ const Eigen::MatrixXd & Sigma_Inn, int Number, double s, const std::vector <doub
 
 			Additions = Get_Particle_Descendents_W(Ancestor, ii, Number, log_likelihood, sigma_hat[ii], Sigma_Inn(ii,ii), Numerator, Denominator, s, General_Weight, horizon);
 
-			/*std::cout << "Final";
-			std::cout << std::endl;
-		        std::cout << Additions.begin()->log_prob;*/
 
 			Output.splice(Output.end(),Additions);
 
