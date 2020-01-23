@@ -79,7 +79,7 @@ plot.ioaorkf = function(x,time = NULL,horizon = NULL,subset = NULL){
     out<-out+geom_point()
     out<-out+theme(axis.title.x=element_blank(),axis.title.y=element_blank())
     
-    out = out+geom_vline(xintercept = time+0.5)+ theme(legend.position="none")
+    out = out+theme(legend.position="none")
     
     
   } else {
