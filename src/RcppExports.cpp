@@ -134,6 +134,25 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// kf_list
+std::list<std::list<Eigen::MatrixXd> > kf_list(const Eigen::MatrixXd& mu_init, const Eigen::MatrixXd& Sigma_init, const std::list<Eigen::MatrixXd>& ys, const Eigen::MatrixXd& A, const Eigen::MatrixXd& b, const Eigen::MatrixXd& C, const Eigen::MatrixXd& d, const Eigen::MatrixXd& R, const Eigen::MatrixXd& Q);
+RcppExport SEXP _Robkf_kf_list(SEXP mu_initSEXP, SEXP Sigma_initSEXP, SEXP ysSEXP, SEXP ASEXP, SEXP bSEXP, SEXP CSEXP, SEXP dSEXP, SEXP RSEXP, SEXP QSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type mu_init(mu_initSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Sigma_init(Sigma_initSEXP);
+    Rcpp::traits::input_parameter< const std::list<Eigen::MatrixXd>& >::type ys(ysSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type A(ASEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type b(bSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type C(CSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type d(dSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type R(RSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type Q(QSEXP);
+    rcpp_result_gen = Rcpp::wrap(kf_list(mu_init, Sigma_init, ys, A, b, C, d, R, Q));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_Robkf_Robust_filter", (DL_FUNC) &_Robkf_Robust_filter, 21},
@@ -142,6 +161,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_Robkf_aorkf_t_list", (DL_FUNC) &_Robkf_aorkf_t_list, 11},
     {"_Robkf_iorkf_huber_list", (DL_FUNC) &_Robkf_iorkf_huber_list, 10},
     {"_Robkf_iorkf_huber_matrix", (DL_FUNC) &_Robkf_iorkf_huber_matrix, 10},
+    {"_Robkf_kf_list", (DL_FUNC) &_Robkf_kf_list, 9},
     {NULL, NULL, 0}
 };
 

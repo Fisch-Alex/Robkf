@@ -25,3 +25,7 @@ iorkf_huber_matrix <- function(mu_old, Sigma_old, y, A, b, C, d, R, Q, h) {
     .Call('_Robkf_iorkf_huber_matrix', PACKAGE = 'Robkf', mu_old, Sigma_old, y, A, b, C, d, R, Q, h)
 }
 
+kf_list <- function(mu_init, Sigma_init, ys, A, b, C, d, R, Q) {
+    .Call('_Robkf_kf_list', PACKAGE = 'Robkf', mu_init, Sigma_init, ys, A, b, C, d, R, Q)
+}
+
