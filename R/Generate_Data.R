@@ -105,12 +105,16 @@ Generate_Data = function(n,A,C,Sigma_Add,Sigma_Inn,mu_0 = NULL,  anomaly_loc = i
   
   anomaly_loc = as.integer(anomaly_loc)
   
-  if (max(anomaly_loc)>n){
-    stop("The entries of anomaly_loc must be between 1 and n")
-  }
+  if (length(anomaly_loc) > 0){
+    
+    if (max(anomaly_loc)>n){
+      stop("The entries of anomaly_loc must be between 1 and n")
+    }
   
-  if (min(anomaly_loc)<1){
-    stop("The entries of anomaly_loc must be between 1 and n")
+    if (min(anomaly_loc)<1){
+      stop("The entries of anomaly_loc must be between 1 and n")
+    }
+    
   }
   
   if (sum(anomaly_type %in% c("Add","Inn")) < length(anomaly_type)){

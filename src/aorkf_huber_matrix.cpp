@@ -16,13 +16,13 @@ std::list<Eigen::MatrixXd> aorkf_huber_matrix(const Eigen::MatrixXd& mu_old,
 					const double& h)	
 {
 
-  Eigen::MatrixXd I = Eigen::MatrixXd::Identity(C.rows(),C.rows());
+  Eigen::MatrixXd I = Eigen::MatrixXd::Identity(A.rows(),A.rows());
 
-  Eigen::MatrixXd m = A.transpose()*mu_old + b;
-  Eigen::MatrixXd P = A.transpose()*Sigma_old*A + Q;
+  Eigen::MatrixXd m = A*mu_old + b;
+  Eigen::MatrixXd P = A*Sigma_old*A.transpose() + Q;
 
-  Eigen::MatrixXd Y_GAP  = y - C.transpose()*m - d;
-  Eigen::MatrixXd M      = P*C*(((C.transpose())*P*C   +   R).inverse());
+  Eigen::MatrixXd Y_GAP  = y - C*m - d;
+  Eigen::MatrixXd M      = P*C.transpose()*(C*P*C.transpose()   +   R).inverse();
   Eigen::MatrixXd Update = M*Y_GAP;
 
   double magnitude = Update.norm();
@@ -32,7 +32,7 @@ std::list<Eigen::MatrixXd> aorkf_huber_matrix(const Eigen::MatrixXd& mu_old,
     Update = Update * (h/magnitude);
   }
 
-  Eigen::MatrixXd Sigma_new = (I - M * (C.transpose())) * P;
+  Eigen::MatrixXd Sigma_new = (I - M * C ) * P;
   Eigen::MatrixXd mu_new    = m + Update;
   
 

@@ -16,22 +16,22 @@ std::list<Eigen::MatrixXd>  aorkf_t_matrix(const Eigen::MatrixXd& mu_old,
 					const double& epsilon)	
 {
 
-  Eigen::MatrixXd m = A.transpose()*mu_old + b;
-  Eigen::MatrixXd P = A.transpose()*Sigma_old*A + Q;
+  Eigen::MatrixXd m = A*mu_old + b;
+  Eigen::MatrixXd P = A*Sigma_old*A.transpose() + Q;
   Eigen::MatrixXd Gamma = R;
   Eigen::MatrixXd Gamma_new = Gamma;
-  Eigen::MatrixXd I = Eigen::MatrixXd::Identity(C.rows(),C.rows());  
+  Eigen::MatrixXd I = Eigen::MatrixXd::Identity(A.rows(),A.rows());  
   double squarediff = 0;
   Eigen::MatrixXd Sigma_new;
   Eigen::MatrixXd mu_new;
   do
   {
       Gamma = Gamma_new;
-      Eigen::MatrixXd K = (C.transpose()*P*C+Gamma).inverse()*C.transpose()*P;
-      mu_new = m + K.transpose() * (y - C.transpose() * m - d);
-      Sigma_new = K.transpose()*Gamma*K + (I - K.transpose()*C.transpose()) * P * (I - C * K);
-      Eigen::MatrixXd delta = y - C.transpose()*mu_new - d;
-      Gamma_new = (s*R + delta*delta.transpose() + C.transpose()*Sigma_new*C)/(s+1);
+      Eigen::MatrixXd K = (C*P*C.transpose()+Gamma).inverse()*C*P;
+      mu_new = m + K.transpose() * (y - C * m - d);
+      Sigma_new = K.transpose()*Gamma*K + (I - K.transpose()*C) * P * (I - C.transpose() * K);
+      Eigen::MatrixXd delta = y - C*mu_new - d;
+      Gamma_new = (s*R + delta*delta.transpose() + C*Sigma_new*C.transpose())/(s+1);
       squarediff = (Gamma_new-Gamma).squaredNorm();
   } while(squarediff > epsilon );
 
