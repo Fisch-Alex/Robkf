@@ -123,20 +123,20 @@ AORKF_t = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,s=2,epsilon=0.000
       
       Rank = Rank+1
       
-      if(Rank > p+5) {
+      if(Rank > q+5) {
         break
       }
-      if( rankMatrix(Full_Matrix)  == p ) {
+      if( rankMatrix(Full_Matrix)  == q ) {
         break
       }
       
-      New_Matrix = A %*% New_Matrix
+      New_Matrix =  New_Matrix %*% A
       
       Full_Matrix = rbind(Full_Matrix,New_Matrix)
       
     }
     
-    if (Rank >p){
+    if (Rank >q){
       stop("The system has to be observable to infer Sigma_0.")
     }
     

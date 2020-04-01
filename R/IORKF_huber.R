@@ -83,6 +83,15 @@ IORKF_huber = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,h=2,epsilon=0
     stop("The number of columns of C must equal the dimensions of the hidden state")
   }
   
+  tryCatch(
+    expr = {
+      solve(C)
+    },
+    error = function(e){ 
+      stop("C must be invertible")
+    }
+  )
+  
   if (nrow(A) != q){
     stop("A must have the same number of rows as the hidden states")
   }
@@ -123,20 +132,20 @@ IORKF_huber = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,h=2,epsilon=0
       
       Rank = Rank+1
       
-      if(Rank > p+5) {
+      if(Rank > q+5) {
         break
       }
-      if( rankMatrix(Full_Matrix)  == p ) {
+      if( rankMatrix(Full_Matrix)  == q ) {
         break
       }
       
-      New_Matrix = A %*% New_Matrix
+      New_Matrix =  New_Matrix %*% A
       
       Full_Matrix = rbind(Full_Matrix,New_Matrix)
       
     }
     
-    if (Rank >p){
+    if (Rank >q){
       stop("The system has to be observable to infer Sigma_0.")
     }
     
