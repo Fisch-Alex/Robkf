@@ -35,7 +35,7 @@ This functions assumes that the additions are potentially polluted by a heavy ta
 Variational inference is used to approximate the posterior.
 }
 \examples{
-library(Robkf)
+library(RobKF)
 
 set.seed(2019)
 
@@ -55,5 +55,5 @@ plot(Output,conf_level = 0.9999)
 
 }
 \references{
-\insertRef{agamennoni2011outlier}{Robkf}
+\insertRef{agamennoni2011outlier}{RobKF}
 }

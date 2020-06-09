@@ -13,10 +13,10 @@
 #' @param Sigma_Inn  A positive definite matrix giving the innovative noise covariance.
 #' @param epsilon A positive numeric giving the precision to which the limit of the covariance is to be computed. It defaults to 0.000001.
 #' @return An rkf S3 class. 
-#' @references \insertRef{ruckdeschel2014robust}{Robkf}
+#' @references \insertRef{ruckdeschel2014robust}{RobKF}
 #'
 #' @examples
-#' library(Robkf)
+#' library(RobKF)
 #' 
 #' set.seed(2019)
 #'

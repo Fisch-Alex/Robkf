@@ -1,4 +1,4 @@
-Package: Robkf
+Package: RobKF
 Type: Package
 Title: Innovative and/or Additive Outlier Robust Kalman Filtering.
 Version: 1.0

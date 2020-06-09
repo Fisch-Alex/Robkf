@@ -31,7 +31,7 @@ An rkf S3 class.
 The classical Kalman filter.
 }
 \examples{
-library(Robkf)
+library(RobKF)
 
 set.seed(2019)
 
@@ -51,5 +51,5 @@ plot(Output)
 
 }
 \references{
-\insertRef{ruckdeschel2014robust}{Robkf}
+\insertRef{ruckdeschel2014robust}{RobKF}
 }

@@ -47,7 +47,7 @@ To approximate the posterior, particles for the precision (inverse variance) are
 }
 \examples{
 
-library(Robkf)
+library(RobKF)
 
 set.seed(2018)
 

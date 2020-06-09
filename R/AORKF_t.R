@@ -16,10 +16,10 @@
 #' @param s A numeric giving the shape of the t-distribution to be considered. It defaults to 2. 
 #' @param epsilon A positive numeric giving the precision to which the limit of the covariance, and the variational inferences is to be computed. It defaults to 0.000001.
 #' @return An rkf S3 class. 
-#' @references \insertRef{agamennoni2011outlier}{Robkf}
+#' @references \insertRef{agamennoni2011outlier}{RobKF}
 #'
 #' @examples
-#' library(Robkf)
+#' library(RobKF)
 #' 
 #' set.seed(2019)
 #'

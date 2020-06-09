@@ -26,7 +26,7 @@
 #'
 #' @examples
 #' 
-#' library(Robkf)
+#' library(RobKF)
 #' 
 #' set.seed(2018)
 #' 

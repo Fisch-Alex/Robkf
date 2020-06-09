@@ -35,7 +35,7 @@ This functions assumes that the additions are potentially polluted by a heavy ta
 The update equations are made robust to these via huberisation.
 }
 \examples{
-library(Robkf)
+library(RobKF)
 
 set.seed(2019)
 
@@ -55,5 +55,5 @@ plot(Output,conf_level = 0.9999)
 
 }
 \references{
-\insertRef{ruckdeschel2014robust}{Robkf}
+\insertRef{ruckdeschel2014robust}{RobKF}
 }
