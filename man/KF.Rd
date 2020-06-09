@@ -4,8 +4,7 @@
 \alias{KF}
 \title{The classical Kalman filter.}
 \usage{
-KF(Y, mu_0, Sigma_0 = NULL, A, C, Sigma_Add, Sigma_Inn, h = 2,
-  epsilon = 1e-06)
+KF(Y, mu_0, Sigma_0 = NULL, A, C, Sigma_Add, Sigma_Inn, epsilon = 1e-06)
 }
 \arguments{
 \item{Y}{A list of matrices containing the observations to be filtered.}

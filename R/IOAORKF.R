@@ -43,10 +43,11 @@
 #'                       
 #' horizon_matrix = matrix(1,nrow = 3 ,ncol = 2)
 #' 
-#' Second_Particle_list_new = IOAORKF(Y_list,mu,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles=20,horizon_matrix=horizon_matrix)
+#' Particle_List = IOAORKF(Y_list,mu,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles=20,
+#'                         horizon_matrix=horizon_matrix)
 #' 
-#' plot(Second_Particle_list_new)
-#' summary(Second_Particle_list_new)
+#' plot(Particle_List)
+#' summary(Particle_List)
 #' 
 #' 
 #' @export

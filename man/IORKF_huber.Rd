@@ -4,8 +4,17 @@
 \alias{IORKF_huber}
 \title{An innovative outlier robust Kalman filter.}
 \usage{
-IORKF_huber(Y, mu_0, Sigma_0 = NULL, A, C, Sigma_Add, Sigma_Inn, h = 2,
-  epsilon = 1e-06)
+IORKF_huber(
+  Y,
+  mu_0,
+  Sigma_0 = NULL,
+  A,
+  C,
+  Sigma_Add,
+  Sigma_Inn,
+  h = 2,
+  epsilon = 1e-06
+)
 }
 \arguments{
 \item{Y}{A list of matrices containing the observations to be filtered.}
@@ -47,7 +56,9 @@ Sigma_Add = diag(1,1)
 
 mu_0 = matrix(0,nrow=1,ncol=1)
 
-Y_list = Generate_Data(1000,A,C,Sigma_Add,Sigma_Inn,mu_0,anomaly_loc = c(100,400,700),anomaly_type = c("Inn","Inn","Inn"),anomaly_comp = c(1,1,1),anomaly_strength = c(50,80,-100))
+Y_list = Generate_Data(1000,A,C,Sigma_Add,Sigma_Inn,mu_0,anomaly_loc = c(100,400,700),
+                       anomaly_type = c("Inn","Inn","Inn"),anomaly_comp = c(1,1,1),
+                       anomaly_strength = c(50,80,-100))
 
 Output = IORKF_huber(Y_list,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,h=2)
 

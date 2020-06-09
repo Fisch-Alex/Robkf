@@ -4,9 +4,22 @@
 \alias{IOAORKF}
 \title{An innovative and additive outlier robust Kalman filter}
 \usage{
-IOAORKF(Y, mu_0, Sigma_0 = NULL, A, C, Sigma_Add, Sigma_Inn, Particles,
-  Descendents = 1, s = 2, anom_add_prob = NULL,
-  anom_inn_prob = NULL, epsilon = 1e-06, horizon_matrix = NULL)
+IOAORKF(
+  Y,
+  mu_0,
+  Sigma_0 = NULL,
+  A,
+  C,
+  Sigma_Add,
+  Sigma_Inn,
+  Particles,
+  Descendents = 1,
+  s = 2,
+  anom_add_prob = NULL,
+  anom_inn_prob = NULL,
+  epsilon = 1e-06,
+  horizon_matrix = NULL
+)
 }
 \arguments{
 \item{Y}{A list of matrices containing the observations to be filtered.}
@@ -64,10 +77,11 @@ Y_list = Generate_Data(100,A,C,Sigma_Add,Sigma_Inn, mu_0 = mu,  anomaly_loc = c(
                       
 horizon_matrix = matrix(1,nrow = 3 ,ncol = 2)
 
-Second_Particle_list_new = IOAORKF(Y_list,mu,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles=20,horizon_matrix=horizon_matrix)
+Particle_List = IOAORKF(Y_list,mu,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles=20,
+                        horizon_matrix=horizon_matrix)
 
-plot(Second_Particle_list_new)
-summary(Second_Particle_list_new)
+plot(Particle_List)
+summary(Particle_List)
 
 
 }

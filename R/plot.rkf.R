@@ -10,6 +10,8 @@
 #' @export
 plot.rkf = function(x,time = NULL,subset = NULL,conf_level = 0.95){
   
+  is_observed<-value<-NULL
+  
   if (is.null(time)){
     time = length(x[["Y"]])
   }

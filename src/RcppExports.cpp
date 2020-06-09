@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // Robust_filter
 std::list< std::list <  std::list < Eigen::MatrixXd > > > Robust_filter(const std::list<std::list<Eigen::MatrixXd> >& Y_expanded, const std::list<Eigen::MatrixXd>& C_list, const std::list<Eigen::MatrixXd>& Sigma_Add_list, const std::list<Eigen::MatrixXd>& Sigma_Inn_Contribution, const Eigen::MatrixXd& A, const Eigen::MatrixXd& Sigma_Inn, const Eigen::MatrixXd& Sigma_Add, const double& s, const int& Num_Descendents, const int& Num_Particles, const std::list<std::vector<int> >& to_sample, const std::vector<int>& Number_of_resamples, const std::vector<double>& sigma_tilde, const std::vector<double>& sigma_hat, const Eigen::MatrixXd& mu_0, const Eigen::MatrixXd& Sigma_0, const int& horizon, const std::vector <double>& prob_inn, const std::vector <double>& prob_add, int Particle_Number, const std::list<Eigen::MatrixXd>& Y_Full_list);
-RcppExport SEXP _Robkf_Robust_filter(SEXP Y_expandedSEXP, SEXP C_listSEXP, SEXP Sigma_Add_listSEXP, SEXP Sigma_Inn_ContributionSEXP, SEXP ASEXP, SEXP Sigma_InnSEXP, SEXP Sigma_AddSEXP, SEXP sSEXP, SEXP Num_DescendentsSEXP, SEXP Num_ParticlesSEXP, SEXP to_sampleSEXP, SEXP Number_of_resamplesSEXP, SEXP sigma_tildeSEXP, SEXP sigma_hatSEXP, SEXP mu_0SEXP, SEXP Sigma_0SEXP, SEXP horizonSEXP, SEXP prob_innSEXP, SEXP prob_addSEXP, SEXP Particle_NumberSEXP, SEXP Y_Full_listSEXP) {
+RcppExport SEXP _RobKF_Robust_filter(SEXP Y_expandedSEXP, SEXP C_listSEXP, SEXP Sigma_Add_listSEXP, SEXP Sigma_Inn_ContributionSEXP, SEXP ASEXP, SEXP Sigma_InnSEXP, SEXP Sigma_AddSEXP, SEXP sSEXP, SEXP Num_DescendentsSEXP, SEXP Num_ParticlesSEXP, SEXP to_sampleSEXP, SEXP Number_of_resamplesSEXP, SEXP sigma_tildeSEXP, SEXP sigma_hatSEXP, SEXP mu_0SEXP, SEXP Sigma_0SEXP, SEXP horizonSEXP, SEXP prob_innSEXP, SEXP prob_addSEXP, SEXP Particle_NumberSEXP, SEXP Y_Full_listSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -39,7 +39,7 @@ END_RCPP
 }
 // Sigma_Limit
 Eigen::MatrixXd Sigma_Limit(Eigen::MatrixXd Sigma0, Eigen::MatrixXd C, Eigen::MatrixXd A, Eigen::MatrixXd Sigma_Inn, Eigen::MatrixXd Sigma_Add, double epsilon);
-RcppExport SEXP _Robkf_Sigma_Limit(SEXP Sigma0SEXP, SEXP CSEXP, SEXP ASEXP, SEXP Sigma_InnSEXP, SEXP Sigma_AddSEXP, SEXP epsilonSEXP) {
+RcppExport SEXP _RobKF_Sigma_Limit(SEXP Sigma0SEXP, SEXP CSEXP, SEXP ASEXP, SEXP Sigma_InnSEXP, SEXP Sigma_AddSEXP, SEXP epsilonSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -55,7 +55,7 @@ END_RCPP
 }
 // aorkf_huber_list
 std::list<std::list<Eigen::MatrixXd> > aorkf_huber_list(const Eigen::MatrixXd& mu_init, const Eigen::MatrixXd& Sigma_init, const std::list<Eigen::MatrixXd>& ys, const Eigen::MatrixXd& A, const Eigen::MatrixXd& b, const Eigen::MatrixXd& C, const Eigen::MatrixXd& d, const Eigen::MatrixXd& R, const Eigen::MatrixXd& Q, const double& h);
-RcppExport SEXP _Robkf_aorkf_huber_list(SEXP mu_initSEXP, SEXP Sigma_initSEXP, SEXP ysSEXP, SEXP ASEXP, SEXP bSEXP, SEXP CSEXP, SEXP dSEXP, SEXP RSEXP, SEXP QSEXP, SEXP hSEXP) {
+RcppExport SEXP _RobKF_aorkf_huber_list(SEXP mu_initSEXP, SEXP Sigma_initSEXP, SEXP ysSEXP, SEXP ASEXP, SEXP bSEXP, SEXP CSEXP, SEXP dSEXP, SEXP RSEXP, SEXP QSEXP, SEXP hSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -75,7 +75,7 @@ END_RCPP
 }
 // aorkf_t_list
 std::list<std::list<Eigen::MatrixXd> > aorkf_t_list(const Eigen::MatrixXd& mu_init, const Eigen::MatrixXd& Sigma_init, const std::list<Eigen::MatrixXd>& ys, const Eigen::MatrixXd& A, const Eigen::MatrixXd& b, const Eigen::MatrixXd& C, const Eigen::MatrixXd& d, const Eigen::MatrixXd& R, const Eigen::MatrixXd& Q, const double& s, const double& epsilon);
-RcppExport SEXP _Robkf_aorkf_t_list(SEXP mu_initSEXP, SEXP Sigma_initSEXP, SEXP ysSEXP, SEXP ASEXP, SEXP bSEXP, SEXP CSEXP, SEXP dSEXP, SEXP RSEXP, SEXP QSEXP, SEXP sSEXP, SEXP epsilonSEXP) {
+RcppExport SEXP _RobKF_aorkf_t_list(SEXP mu_initSEXP, SEXP Sigma_initSEXP, SEXP ysSEXP, SEXP ASEXP, SEXP bSEXP, SEXP CSEXP, SEXP dSEXP, SEXP RSEXP, SEXP QSEXP, SEXP sSEXP, SEXP epsilonSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -96,7 +96,7 @@ END_RCPP
 }
 // iorkf_huber_list
 std::list<std::list<Eigen::MatrixXd> > iorkf_huber_list(const Eigen::MatrixXd& mu_init, const Eigen::MatrixXd& Sigma_init, const std::list<Eigen::MatrixXd>& ys, const Eigen::MatrixXd& A, const Eigen::MatrixXd& b, const Eigen::MatrixXd& C, const Eigen::MatrixXd& d, const Eigen::MatrixXd& R, const Eigen::MatrixXd& Q, const double& h);
-RcppExport SEXP _Robkf_iorkf_huber_list(SEXP mu_initSEXP, SEXP Sigma_initSEXP, SEXP ysSEXP, SEXP ASEXP, SEXP bSEXP, SEXP CSEXP, SEXP dSEXP, SEXP RSEXP, SEXP QSEXP, SEXP hSEXP) {
+RcppExport SEXP _RobKF_iorkf_huber_list(SEXP mu_initSEXP, SEXP Sigma_initSEXP, SEXP ysSEXP, SEXP ASEXP, SEXP bSEXP, SEXP CSEXP, SEXP dSEXP, SEXP RSEXP, SEXP QSEXP, SEXP hSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -116,7 +116,7 @@ END_RCPP
 }
 // iorkf_huber_matrix
 std::list<Eigen::MatrixXd> iorkf_huber_matrix(const Eigen::MatrixXd& mu_old, const Eigen::MatrixXd& Sigma_old, const Eigen::MatrixXd& y, const Eigen::MatrixXd& A, const Eigen::MatrixXd& b, const Eigen::MatrixXd& C, const Eigen::MatrixXd& d, const Eigen::MatrixXd& R, const Eigen::MatrixXd& Q, const double& h);
-RcppExport SEXP _Robkf_iorkf_huber_matrix(SEXP mu_oldSEXP, SEXP Sigma_oldSEXP, SEXP ySEXP, SEXP ASEXP, SEXP bSEXP, SEXP CSEXP, SEXP dSEXP, SEXP RSEXP, SEXP QSEXP, SEXP hSEXP) {
+RcppExport SEXP _RobKF_iorkf_huber_matrix(SEXP mu_oldSEXP, SEXP Sigma_oldSEXP, SEXP ySEXP, SEXP ASEXP, SEXP bSEXP, SEXP CSEXP, SEXP dSEXP, SEXP RSEXP, SEXP QSEXP, SEXP hSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -136,7 +136,7 @@ END_RCPP
 }
 // kf_list
 std::list<std::list<Eigen::MatrixXd> > kf_list(const Eigen::MatrixXd& mu_init, const Eigen::MatrixXd& Sigma_init, const std::list<Eigen::MatrixXd>& ys, const Eigen::MatrixXd& A, const Eigen::MatrixXd& b, const Eigen::MatrixXd& C, const Eigen::MatrixXd& d, const Eigen::MatrixXd& R, const Eigen::MatrixXd& Q);
-RcppExport SEXP _Robkf_kf_list(SEXP mu_initSEXP, SEXP Sigma_initSEXP, SEXP ysSEXP, SEXP ASEXP, SEXP bSEXP, SEXP CSEXP, SEXP dSEXP, SEXP RSEXP, SEXP QSEXP) {
+RcppExport SEXP _RobKF_kf_list(SEXP mu_initSEXP, SEXP Sigma_initSEXP, SEXP ysSEXP, SEXP ASEXP, SEXP bSEXP, SEXP CSEXP, SEXP dSEXP, SEXP RSEXP, SEXP QSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -155,17 +155,17 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_Robkf_Robust_filter", (DL_FUNC) &_Robkf_Robust_filter, 21},
-    {"_Robkf_Sigma_Limit", (DL_FUNC) &_Robkf_Sigma_Limit, 6},
-    {"_Robkf_aorkf_huber_list", (DL_FUNC) &_Robkf_aorkf_huber_list, 10},
-    {"_Robkf_aorkf_t_list", (DL_FUNC) &_Robkf_aorkf_t_list, 11},
-    {"_Robkf_iorkf_huber_list", (DL_FUNC) &_Robkf_iorkf_huber_list, 10},
-    {"_Robkf_iorkf_huber_matrix", (DL_FUNC) &_Robkf_iorkf_huber_matrix, 10},
-    {"_Robkf_kf_list", (DL_FUNC) &_Robkf_kf_list, 9},
+    {"_RobKF_Robust_filter", (DL_FUNC) &_RobKF_Robust_filter, 21},
+    {"_RobKF_Sigma_Limit", (DL_FUNC) &_RobKF_Sigma_Limit, 6},
+    {"_RobKF_aorkf_huber_list", (DL_FUNC) &_RobKF_aorkf_huber_list, 10},
+    {"_RobKF_aorkf_t_list", (DL_FUNC) &_RobKF_aorkf_t_list, 11},
+    {"_RobKF_iorkf_huber_list", (DL_FUNC) &_RobKF_iorkf_huber_list, 10},
+    {"_RobKF_iorkf_huber_matrix", (DL_FUNC) &_RobKF_iorkf_huber_matrix, 10},
+    {"_RobKF_kf_list", (DL_FUNC) &_RobKF_kf_list, 9},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_Robkf(DllInfo *dll) {
+RcppExport void R_init_RobKF(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

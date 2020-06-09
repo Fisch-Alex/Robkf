@@ -2,30 +2,30 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 Robust_filter <- function(Y_expanded, C_list, Sigma_Add_list, Sigma_Inn_Contribution, A, Sigma_Inn, Sigma_Add, s, Num_Descendents, Num_Particles, to_sample, Number_of_resamples, sigma_tilde, sigma_hat, mu_0, Sigma_0, horizon, prob_inn, prob_add, Particle_Number, Y_Full_list) {
-    .Call('_Robkf_Robust_filter', PACKAGE = 'Robkf', Y_expanded, C_list, Sigma_Add_list, Sigma_Inn_Contribution, A, Sigma_Inn, Sigma_Add, s, Num_Descendents, Num_Particles, to_sample, Number_of_resamples, sigma_tilde, sigma_hat, mu_0, Sigma_0, horizon, prob_inn, prob_add, Particle_Number, Y_Full_list)
+    .Call('_RobKF_Robust_filter', PACKAGE = 'RobKF', Y_expanded, C_list, Sigma_Add_list, Sigma_Inn_Contribution, A, Sigma_Inn, Sigma_Add, s, Num_Descendents, Num_Particles, to_sample, Number_of_resamples, sigma_tilde, sigma_hat, mu_0, Sigma_0, horizon, prob_inn, prob_add, Particle_Number, Y_Full_list)
 }
 
 Sigma_Limit <- function(Sigma0, C, A, Sigma_Inn, Sigma_Add, epsilon) {
-    .Call('_Robkf_Sigma_Limit', PACKAGE = 'Robkf', Sigma0, C, A, Sigma_Inn, Sigma_Add, epsilon)
+    .Call('_RobKF_Sigma_Limit', PACKAGE = 'RobKF', Sigma0, C, A, Sigma_Inn, Sigma_Add, epsilon)
 }
 
 aorkf_huber_list <- function(mu_init, Sigma_init, ys, A, b, C, d, R, Q, h) {
-    .Call('_Robkf_aorkf_huber_list', PACKAGE = 'Robkf', mu_init, Sigma_init, ys, A, b, C, d, R, Q, h)
+    .Call('_RobKF_aorkf_huber_list', PACKAGE = 'RobKF', mu_init, Sigma_init, ys, A, b, C, d, R, Q, h)
 }
 
 aorkf_t_list <- function(mu_init, Sigma_init, ys, A, b, C, d, R, Q, s, epsilon) {
-    .Call('_Robkf_aorkf_t_list', PACKAGE = 'Robkf', mu_init, Sigma_init, ys, A, b, C, d, R, Q, s, epsilon)
+    .Call('_RobKF_aorkf_t_list', PACKAGE = 'RobKF', mu_init, Sigma_init, ys, A, b, C, d, R, Q, s, epsilon)
 }
 
 iorkf_huber_list <- function(mu_init, Sigma_init, ys, A, b, C, d, R, Q, h) {
-    .Call('_Robkf_iorkf_huber_list', PACKAGE = 'Robkf', mu_init, Sigma_init, ys, A, b, C, d, R, Q, h)
+    .Call('_RobKF_iorkf_huber_list', PACKAGE = 'RobKF', mu_init, Sigma_init, ys, A, b, C, d, R, Q, h)
 }
 
 iorkf_huber_matrix <- function(mu_old, Sigma_old, y, A, b, C, d, R, Q, h) {
-    .Call('_Robkf_iorkf_huber_matrix', PACKAGE = 'Robkf', mu_old, Sigma_old, y, A, b, C, d, R, Q, h)
+    .Call('_RobKF_iorkf_huber_matrix', PACKAGE = 'RobKF', mu_old, Sigma_old, y, A, b, C, d, R, Q, h)
 }
 
 kf_list <- function(mu_init, Sigma_init, ys, A, b, C, d, R, Q) {
-    .Call('_Robkf_kf_list', PACKAGE = 'Robkf', mu_init, Sigma_init, ys, A, b, C, d, R, Q)
+    .Call('_RobKF_kf_list', PACKAGE = 'RobKF', mu_init, Sigma_init, ys, A, b, C, d, R, Q)
 }
 

@@ -10,6 +10,8 @@
 #' @export
 plot.ioaorkf = function(x,time = NULL,horizon = NULL,subset = NULL){
   
+  is_observed<-value<-NULL
+  
   if (is.null(horizon)){
     horizon = x$horizon
   }

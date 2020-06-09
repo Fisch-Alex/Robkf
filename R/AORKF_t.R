@@ -31,7 +31,9 @@
 #'
 #' mu_0 = matrix(0,nrow=1,ncol=1)
 #' 
-#' Y_list = Generate_Data(1000,A,C,Sigma_Add,Sigma_Inn,mu_0,anomaly_loc = c(100,400,700),anomaly_type = c("Add","Add","Add"),anomaly_comp = c(1,1,1),anomaly_strength = c(10,10,10))
+#' Y_list = Generate_Data(1000,A,C,Sigma_Add,Sigma_Inn,mu_0,anomaly_loc = c(100,400,700),
+#'                        anomaly_type = c("Add","Add","Add"),anomaly_comp = c(1,1,1),
+#'                        anomaly_strength = c(10,10,10))
 #' 
 #' Output = AORKF_t(Y_list,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn)
 #' 

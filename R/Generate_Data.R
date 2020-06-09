@@ -17,7 +17,6 @@
 #' @return A list of matrices, each corresponding to an observation. 
 #'
 #'
-#' @examples
 #' 
 #' 
 #' @export

@@ -4,9 +4,18 @@
 \alias{Generate_Data}
 \title{Simulate data from a Kalman model}
 \usage{
-Generate_Data(n, A, C, Sigma_Add, Sigma_Inn, mu_0 = NULL,
-  anomaly_loc = integer(0), anomaly_type = character(0),
-  anomaly_comp = integer(0), anomaly_strength = NULL)
+Generate_Data(
+  n,
+  A,
+  C,
+  Sigma_Add,
+  Sigma_Inn,
+  mu_0 = NULL,
+  anomaly_loc = integer(0),
+  anomaly_type = character(0),
+  anomaly_comp = integer(0),
+  anomaly_strength = NULL
+)
 }
 \arguments{
 \item{n}{A positive integer giving the number of observations desired}
@@ -34,8 +43,4 @@ A list of matrices, each corresponding to an observation.
 }
 \description{
 This function simulates data obeying a Kalman model whilst alloiwng the user to add innovative and additive anomalies.
-}
-\examples{
-
-
 }

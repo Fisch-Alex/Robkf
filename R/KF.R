@@ -35,7 +35,7 @@
 #' plot(Output)
 #' 
 #' @export
-KF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,h=2,epsilon=0.000001)
+KF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,epsilon=0.000001)
 {
   
   p = nrow(Sigma_Add)
