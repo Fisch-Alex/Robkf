@@ -5,9 +5,15 @@
 #' @param x An ioaorkf object.
 #' @param time A positive integer giving the time at which the output is to be displayed. It defaults to the number of observations
 #' @param horizon A positive integer giving the smoothing horizon that is to be used. It must be at least equal to the number of rows of the horizonmatric used to obtain the ioaorkf object.
+#' @param ... Other parameters to be passed to plotting methods.
 #' @return A ggplot object.
 #' @export
-print.ioaorkf = function(x,time = NULL,horizon = NULL){
+print.ioaorkf = function(x,time = NULL,horizon = NULL,...){
+  
+  unexpectedarguments = names(list(...))
+  
+  if(length(unexpectedarguments)==1){warning(paste("The argument",unexpectedarguments,"has been ignored"))}
+  if(length(unexpectedarguments)>1){warning(paste("The arguments",paste(unexpectedarguments,", "),"have been ignored"))}
   
   if (is.null(horizon)){
     horizon = x$horizon

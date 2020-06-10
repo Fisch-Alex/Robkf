@@ -4,7 +4,7 @@
 \alias{plot.ioaorkf}
 \title{Plot method for ioarkf}
 \usage{
-\method{plot}{ioaorkf}(x, time = NULL, horizon = NULL, subset = NULL)
+\method{plot}{ioaorkf}(x, time = NULL, horizon = NULL, subset = NULL, ...)
 }
 \arguments{
 \item{x}{An ioaorkf object.}
@@ -14,6 +14,8 @@
 \item{horizon}{A positive integer giving the smoothing horizon that is to be used. It must be at least equal to the number of rows of the horizonmatric used to obtain the ioaorkf object.}
 
 \item{subset}{A list of integers indicating the components of observations which are to be plotted.}
+
+\item{...}{Other parameters to be passed to plotting methods.}
 }
 \value{
 A ggplot object.

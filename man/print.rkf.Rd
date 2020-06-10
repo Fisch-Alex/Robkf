@@ -4,7 +4,7 @@
 \alias{print.rkf}
 \title{Print method for rkf}
 \usage{
-\method{print}{rkf}(x, time = NULL, conf_level = 0.95)
+\method{print}{rkf}(x, time = NULL, conf_level = 0.95, ...)
 }
 \arguments{
 \item{x}{An rkf object.}
@@ -12,6 +12,8 @@
 \item{time}{A positive integer giving the time at which the output is to be displayed. It defaults to the number of observations.}
 
 \item{conf_level}{A probability between 0 and 1 giving the confidence level at which the series are to be tested against anomalies. It defaults to 0.95.}
+
+\item{...}{Other parameters to be passed to plotting methods.}
 }
 \value{
 A ggplot object.

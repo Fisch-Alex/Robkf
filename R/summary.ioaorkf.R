@@ -2,12 +2,20 @@
 #'
 #' @name summary.ioaorkf 
 #' @description A function to summarise the output of an IOAORKF filter. One can specify a time during the run for which the output should be displayed.
-#' @param x An ioaorkf object.
+#' @param object An ioaorkf object.
 #' @param time A positive integer giving the time at which the output is to be displayed. It defaults to the number of observations
 #' @param horizon A positive integer giving the smoothing horizon that is to be used. It must be at least equal to the number of rows of the horizonmatric used to obtain the ioaorkf object.
+#' @param ... Other parameters to be passed to plotting methods.
 #' @return A ggplot object.
 #' @export
-summary.ioaorkf = function(x,time = NULL,horizon = NULL){
+summary.ioaorkf = function(object,time = NULL,horizon = NULL,...){
+  
+  x = object
+  
+  unexpectedarguments = names(list(...))
+  
+  if(length(unexpectedarguments)==1){warning(paste("The argument",unexpectedarguments,"has been ignored"))}
+  if(length(unexpectedarguments)>1){warning(paste("The arguments",paste(unexpectedarguments,", "),"have been ignored"))}
   
   if (is.null(horizon)){
     horizon = x$horizon

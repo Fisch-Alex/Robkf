@@ -4,7 +4,7 @@
 \alias{plot.rkf}
 \title{Plot method for rkf}
 \usage{
-\method{plot}{rkf}(x, time = NULL, subset = NULL, conf_level = 0.95)
+\method{plot}{rkf}(x, time = NULL, subset = NULL, conf_level = 0.95, ...)
 }
 \arguments{
 \item{x}{An rkf object.}
@@ -14,6 +14,8 @@
 \item{subset}{A list of integers indicating the components of observations which are to be plotted.}
 
 \item{conf_level}{A probability between 0 and 1 giving the confidence level at which the series are to be tested against anomalies. It defaults to 0.95.}
+
+\item{...}{Other parameters to be passed to plotting methods.}
 }
 \value{
 A ggplot object.

@@ -6,9 +6,15 @@
 #' @param time A positive integer giving the time at which the output is to be displayed. It defaults to the number of observations.
 #' @param subset A list of integers indicating the components of observations which are to be plotted.
 #' @param conf_level A probability between 0 and 1 giving the confidence level at which the series are to be tested against anomalies. It defaults to 0.95.
+#' @param ... Other parameters to be passed to plotting methods.
 #' @return A ggplot object.
 #' @export
-plot.rkf = function(x,time = NULL,subset = NULL,conf_level = 0.95){
+plot.rkf = function(x,time = NULL,subset = NULL,conf_level = 0.95,...){
+  
+  unexpectedarguments = names(list(...))
+  
+  if(length(unexpectedarguments)==1){warning(paste("The argument",unexpectedarguments,"has been ignored"))}
+  if(length(unexpectedarguments)>1){warning(paste("The arguments",paste(unexpectedarguments,", "),"have been ignored"))}  
   
   is_observed<-value<-NULL
   

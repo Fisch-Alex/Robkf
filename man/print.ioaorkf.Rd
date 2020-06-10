@@ -4,7 +4,7 @@
 \alias{print.ioaorkf}
 \title{Print method for ioarkf}
 \usage{
-\method{print}{ioaorkf}(x, time = NULL, horizon = NULL)
+\method{print}{ioaorkf}(x, time = NULL, horizon = NULL, ...)
 }
 \arguments{
 \item{x}{An ioaorkf object.}
@@ -12,6 +12,8 @@
 \item{time}{A positive integer giving the time at which the output is to be displayed. It defaults to the number of observations}
 
 \item{horizon}{A positive integer giving the smoothing horizon that is to be used. It must be at least equal to the number of rows of the horizonmatric used to obtain the ioaorkf object.}
+
+\item{...}{Other parameters to be passed to plotting methods.}
 }
 \value{
 A ggplot object.
