@@ -15,7 +15,7 @@ const Eigen::MatrixXd & Sigma_Inn, int Number, double s, const std::vector <doub
 
 	double Numerator, Denominator, General_Weight, log_likelihood;
 
-	log_likelihood = - 0.5 * ((Residual.transpose() * Ancestor.obs_Prec * Residual).value() - log(Ancestor.obs_Prec.determinant()) ) ;
+	log_likelihood = - 0.5 * ((Residual.transpose() * Ancestor.obs_Prec * Residual).value() - std::log(Ancestor.obs_Prec.determinant()) ) ;
 
 	for (int ii = 0; ii < Sigma_Inn.rows(); ii++)
 	{

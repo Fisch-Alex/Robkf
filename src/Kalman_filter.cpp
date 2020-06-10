@@ -26,14 +26,14 @@ const int & horizon, const std::vector <double> & prob_inn, const std::vector <d
 	for (int ii = 0; ii < prob_inn.size(); ii++)
 	{
 
-			General_Weight_Inn[ii] = -log(Num_Descendents) - log(tgamma(s)) + log(tgamma(s+0.5)) + s*log(s) + 0.5*log(sigma_hat[ii]) + log(prob_inn[ii]) - log(1-prob_inn[ii]) - log(Number_of_resamples[ii]);
+			General_Weight_Inn[ii] = -std::log(Num_Descendents) - std::log(tgamma(s)) + std::log(tgamma(s+0.5)) + s*std::log(s) + 0.5*std::log(sigma_hat[ii]) + std::log(prob_inn[ii]) - std::log(1-prob_inn[ii]) - std::log(Number_of_resamples[ii]);
 
 	}
 
 	for (int jj = 0; jj < prob_add.size(); jj++)
 	{
 
-			General_Weight_Add[jj] = -log(Num_Descendents) - log(tgamma(s)) + log(tgamma(s+0.5)) + s*log(s) + 0.5*log(sigma_tilde[jj]) + log(prob_add[jj]) - log(1-prob_add[jj]);
+			General_Weight_Add[jj] = -std::log(Num_Descendents) - std::log(tgamma(s)) + std::log(tgamma(s+0.5)) + s*std::log(s) + 0.5*std::log(sigma_tilde[jj]) + std::log(prob_add[jj]) - std::log(1-prob_add[jj]);
 
 	}
 

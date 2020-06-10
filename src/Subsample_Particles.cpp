@@ -42,7 +42,7 @@ std::list < struct Particle > Subsample_Particles(std::list < struct Particle > 
     	{
       		
 		Index[ii] = ii;
-		Probs[ii] = exp(it->log_prob - max_log_prob);
+		Probs[ii] = std::exp(it->log_prob - max_log_prob);
 		ii++;
 		it++;
 

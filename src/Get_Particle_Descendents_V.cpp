@@ -17,7 +17,7 @@ double s, double General_weight)
 
 	parameter = 1/(s + 0.5*sigma_tilde*factor/tmp);
 
-	Common_weight = (s+0.5)*log(parameter);
+	Common_weight = (s+0.5)*std::log(parameter);
 
 
 
@@ -26,7 +26,7 @@ double s, double General_weight)
 		
 		sampled_scale  = sigma_tilde*(R::rgamma(s + 0.5, parameter));
 
-		specific_weight = -0.5*(  log(tmp+sampled_scale) - (1 +  sampled_scale*sampled_scale/tmp/(tmp+sampled_scale)) * factor );
+		specific_weight = -0.5*(  std::log(tmp+sampled_scale) - (1 +  sampled_scale*sampled_scale/tmp/(tmp+sampled_scale)) * factor );
 
 		/*std::cout << std::endl;
 		std::cout << "sampled_scale_stuff";
