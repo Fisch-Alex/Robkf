@@ -1,12 +1,12 @@
-#' Print method for rkf
+
+#' print
 #'
-#' @name print.rkf 
-#' @description A function to print the output produced by \code{\link{AORKF_t}}, \code{\link{AORKF_huber}}, or \code{\link{IORKF_huber}}. One can specify a time during the run for which the output should be displayed.
-#' @param x An rkf object.
+#' @name print 
+#' @description A function to print the output produced by \code{\link{AORKF_t}}, \code{\link{AORKF_huber}}, \code{\link{IORKF_huber}} or \code{\link{IOAORKF}}.
+#' One can specify a time during the run for which the output should be displayed.
+#' @param x An instance of an \code{ioaorkf} or \code{rkf} S3 class.
 #' @param time A positive integer giving the time at which the output is to be displayed. It defaults to the number of observations.
 #' @param conf_level A probability between 0 and 1 giving the confidence level at which the series are to be tested against anomalies. It defaults to 0.95.
-#' @param ... Other parameters to be passed to plotting methods.
-#' @return A ggplot object.
 #' @export
 print.rkf = function(x,time = NULL,conf_level = 0.95,...){
   

@@ -1,20 +1,13 @@
-#' Plot method for ioarkf
-#'
-#' @name plot.ioaorkf 
-#' @description A function to plot the output of an IOAORKF filter. One can specify a time during the run for which the output should be displayed.
-#' @param x An ioaorkf object.
-#' @param time A positive integer giving the time at which the output is to be displayed. It defaults to the number of observations
+#' @name plot
 #' @param horizon A positive integer giving the smoothing horizon that is to be used. It must be at least equal to the number of rows of the horizonmatric used to obtain the ioaorkf object.
-#' @param subset A list of integers indicating the components of observations which are to be plotted.
-#' @param ... Other parameters to be passed to plotting methods.
-#' @return A ggplot object.
+#' @param ... Ignored.
 #' @export
 plot.ioaorkf = function(x,time = NULL,horizon = NULL,subset = NULL,...){
   
-  unexpectedarguments = names(list(...))
+   unexpectedarguments = names(list(...))
   
-  if(length(unexpectedarguments)==1){warning(paste("The argument",unexpectedarguments,"has been ignored"))}
-  if(length(unexpectedarguments)>1){warning(paste("The arguments",paste(unexpectedarguments,", "),"have been ignored"))}  
+   if(length(unexpectedarguments)==1){warning(paste("The argument",unexpectedarguments,"has been ignored"))}
+   if(length(unexpectedarguments)>1){warning(paste("The arguments",paste(unexpectedarguments,", "),"have been ignored"))}  
   
   is_observed<-value<-NULL
   
