@@ -2,7 +2,7 @@
 % Please edit documentation in R/IORKF_huber.R
 \name{IORKF_huber}
 \alias{IORKF_huber}
-\title{An innovative outlier robust Kalman filter.}
+\title{A huberisation based innovative outlier robust Kalman filter}
 \usage{
 IORKF_huber(
   Y,
@@ -40,7 +40,7 @@ An rkf S3 class.
 }
 \description{
 An innovative outlier robust Kalman filter, based on the work by Ruckdeschel et al. (2014).
-This functions assumes that the innovations are potentially polluted by a heavy tailed process.
+This function assumes that the innovations are potentially polluted by a heavy tailed process.
 The update equations are made robust to these via huberisation.
 }
 \examples{

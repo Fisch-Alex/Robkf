@@ -44,3 +44,25 @@ A list of matrices, each corresponding to an observation.
 \description{
 This function simulates data obeying a Kalman model whilst alloiwng the user to add innovative and additive anomalies.
 }
+\examples{
+
+library(RobKF)
+library(ggplot2)
+
+set.seed(2018)
+
+A = diag(2)*0.99
+A[1,2] = -0.05
+C = matrix(c(10,0.1),nrow=1)
+mu = matrix(c(0,0),nrow=2)
+Sigma_Inn = diag(c(1,0.01)*0.00001,nrow=2)
+Sigma_Add = diag(c(1)*0.1,nrow=1)
+
+Y_list = Generate_Data(100,A,C,Sigma_Add,Sigma_Inn, mu_0 = mu,  anomaly_loc = c(10,30,50), 
+                      anomaly_type = c("Inn","Add","Inn"), 
+                      anomaly_comp = c(1,1,2),  anomaly_strength = c(400,-10,3000))
+                      
+qplot(1:100,unlist(Y_list),xlab="time",ylab="observation")+theme_minimal()
+
+
+}

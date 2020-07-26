@@ -6,7 +6,7 @@ Extract_anomaly = function(x,A,C,Sigma_Add,Sigma_Inn){
   
   score = t(Innovation) %*% solve(Predictive_Var) %*% Innovation
   
-  return(Innovation)
+  return(score)
   
 }
 

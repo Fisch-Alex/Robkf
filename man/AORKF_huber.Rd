@@ -2,7 +2,7 @@
 % Please edit documentation in R/AORKF_huber.R
 \name{AORKF_huber}
 \alias{AORKF_huber}
-\title{An additive outlier robust Kalman filter.}
+\title{A huberisation based additive outlier robust Kalman filter}
 \usage{
 AORKF_huber(
   Y,
@@ -40,7 +40,7 @@ An rkf S3 class.
 }
 \description{
 An additive outlier robust Kalman filter, based on the work by Ruckdeschel et al. (2014).
-This functions assumes that the additions are potentially polluted by a heavy tailed process.
+This function assumes that the additions are potentially polluted by a heavy tailed process.
 The update equations are made robust to these via huberisation.
 }
 \examples{

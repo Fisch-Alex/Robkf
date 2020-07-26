@@ -1,9 +1,9 @@
-#' An innovative outlier robust Kalman filter.
+#' A huberisation based innovative outlier robust Kalman filter
 #'
 #' @name IORKF_huber
 #'
 #' @description An innovative outlier robust Kalman filter, based on the work by Ruckdeschel et al. (2014).
-#' This functions assumes that the innovations are potentially polluted by a heavy tailed process.
+#' This function assumes that the innovations are potentially polluted by a heavy tailed process.
 #' The update equations are made robust to these via huberisation.
 #' 
 #' @param Y A list of matrices containing the observations to be filtered.

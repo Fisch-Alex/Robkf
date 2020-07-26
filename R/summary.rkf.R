@@ -42,7 +42,9 @@ summary.rkf = function(object,time = NULL,conf_level = 0.95,...){
   
   scores = abs(Extract_all_anomalies(x))
   
-  pre_out = which(scores> qnorm(conf_level))
+  pre_out = which(scores> qchisq(conf_level,df = length(x[["Y"]][[1]])))
+  
+  pre_out = pre_out[which(pre_out <= time)]
   
   if (length(pre_out) == 0){
     

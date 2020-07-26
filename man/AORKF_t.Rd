@@ -2,7 +2,7 @@
 % Please edit documentation in R/AORKF_t.R
 \name{AORKF_t}
 \alias{AORKF_t}
-\title{An additive outlier robust Kalman filter.}
+\title{A t-distribution based additive outlier robust Kalman filter}
 \usage{
 AORKF_t(
   Y,
@@ -40,7 +40,7 @@ An rkf S3 class.
 }
 \description{
 An additive outlier robust Kalman filter, based on the work by Agamennoni et al. (2018).
-This functions assumes that the additions are potentially polluted by a heavy tailed process, which is approximated by a t-dstribution.
+This function assumes that the additions are potentially polluted by a heavy tailed process, which is approximated by a t-dstribution.
 Variational inference is used to approximate the posterior.
 }
 \examples{

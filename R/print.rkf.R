@@ -43,6 +43,8 @@ print.rkf = function(x,time = NULL,conf_level = 0.95,...){
   
   pre_out = which(scores> qchisq(conf_level,df = length(x[["Y"]][[1]])))
   
+  pre_out = pre_out[which(pre_out <= time)]
+  
   probs = pchisq(scores[pre_out],df = length(x[["Y"]][[1]]))
   
   if (length(pre_out) == 0){

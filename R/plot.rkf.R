@@ -42,7 +42,11 @@ plot.rkf = function(x,time = NULL,subset = NULL,conf_level = 0.95,...){
     stop("conf_level must be between 0 and 1")
   }
   
-  pre_out = which(abs(Extract_all_anomalies(x)) > qnorm(conf_level) )
+  scores = abs(Extract_all_anomalies(x))
+  
+  pre_out = which(scores> qchisq(conf_level,df = length(x[["Y"]][[1]])))
+  
+  pre_out = pre_out[which(pre_out <= time)]
   
   mydaf= as.data.frame(t(Reduce(cbind,x[["Y"]])))
   n = nrow(mydaf)

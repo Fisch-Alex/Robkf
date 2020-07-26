@@ -2,8 +2,8 @@
 #'
 #' @name IOAORKF 
 #'
-#' @description An innovative and additive outlier robust Kalman filter, based on Fisch et al. (2020).
-#' This functions assumes that both the innovations and additions are potentially polluted by a heavy tailed process, which is approximated by a t-dstribution.
+#' @description An implementation of Computationally Efficient Bayesian Anomaly detection by Sequential Sampling (CE-BASS) by Fisch et al. (2020).
+#' This function assumes that both the innovations and additions are potentially polluted by a heavy tailed process, which is approximated by a t-dstribution.
 #' To approximate the posterior, particles for the precision (inverse variance) are sampled using a robust approximation to the posterior. Conditionally on those samples, the classical Kalman updates are used.
 #' 
 #' 
@@ -22,7 +22,7 @@
 #' @param epsilon A positive numeric giving the precision to which the limit of the covariance is to be computed. It defaults to 0.000001.
 #' @param horizon_matrix A matrix of 0s and 1s giving the horizon's at which innovative particles are to be resampled. It defaults to a k by q matrix, where k is the number of observations required for observability of the system and q is the dimension of the hidden states.
 #' @return An ioaorkf S3 class. 
-#'
+#' @references \insertRef{fisch2020innovative}{RobKF}
 #'
 #' @examples
 #' 

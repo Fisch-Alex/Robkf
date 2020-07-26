@@ -2,7 +2,7 @@
 % Please edit documentation in R/KF.R
 \name{KF}
 \alias{KF}
-\title{The classical Kalman filter.}
+\title{The classical Kalman filter}
 \usage{
 KF(Y, mu_0, Sigma_0 = NULL, A, C, Sigma_Add, Sigma_Inn, epsilon = 1e-06)
 }
@@ -50,5 +50,5 @@ plot(Output)
 
 }
 \references{
-\insertRef{ruckdeschel2014robust}{RobKF}
+\insertRef{Kalman1960}{RobKF}
 }
