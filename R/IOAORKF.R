@@ -57,6 +57,14 @@ IOAORKF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles,Descend
   p = nrow(Sigma_Add)
   q = nrow(Sigma_Inn)
   
+  if (is.null(p)){
+    stop("Sigma_Add must be a matrix.")
+  }
+  
+  if (is.null(q)){
+    stop("Sigma_Inn must be a matrix.")
+  }
+  
   Particles = as.integer(Particles)
   
   Descendents = as.integer(Descendents)

@@ -46,6 +46,14 @@ AORKF_huber = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,h=2,epsilon=0
   p = nrow(Sigma_Add)
   q = nrow(Sigma_Inn)
   
+  if (is.null(p)){
+    stop("Sigma_Add must be a matrix.")
+  }
+  
+  if (is.null(q)){
+    stop("Sigma_Inn must be a matrix.")
+  }
+  
   for (ii in 1:length(Y)){
     
     Y[[ii]] = as.matrix(Y[[ii]])
