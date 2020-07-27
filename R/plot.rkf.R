@@ -111,7 +111,7 @@ plot.rkf = function(x,time = NULL,subset = NULL,conf_level = 0.95,...){
       
       if (x[["Type"]] == "AO"){
       
-        for (jj in 1:p){
+        for (jj in 1:length(subset)){
         
           Point_Anomalies = pre_out[ii] + (jj-1)*n
         

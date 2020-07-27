@@ -102,7 +102,7 @@ plot.ioaorkf = function(x,time = NULL,horizon = NULL,subset = NULL,...){
       
       out = out+geom_vline(xintercept = pre_out$anomaly_locations[ii],colour="blue",alpha = sum(pre_out$anomaly_inn_prob[ii,]))+ theme(legend.position="none")
       
-      for (jj in 1:p){
+      for (jj in 1:length(subset)){
         
         Point_Anomalies = pre_out$anomaly_locations[ii] + (jj-1)*n
         
