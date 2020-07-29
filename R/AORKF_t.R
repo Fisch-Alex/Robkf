@@ -3,7 +3,7 @@
 #' @name AORKF_t 
 #'
 #' @description An additive outlier robust Kalman filter, based on the work by Agamennoni et al. (2018).
-#' This function assumes that the additions are potentially polluted by a heavy tailed process, which is approximated by a t-dstribution.
+#' This function assumes that the additions are potentially polluted by a heavy tailed process, which is approximated by a t-distribution.
 #' Variational inference is used to approximate the posterior.
 #' 
 #' @param Y A list of matrices containing the observations to be filtered.

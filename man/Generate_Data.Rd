@@ -36,13 +36,13 @@ Generate_Data(
 
 \item{anomaly_comp}{A vector of integers giving the component affected by the anomalies.}
 
-\item{anomaly_strength}{A vector of numerics givig the strength of the anomalies (in sigmas).}
+\item{anomaly_strength}{A vector of numerics giving the strength of the anomalies (in sigmas).}
 }
 \value{
 A list of matrices, each corresponding to an observation.
 }
 \description{
-This function simulates data obeying a Kalman model whilst alloiwng the user to add innovative and additive anomalies.
+This function simulates data obeying a Kalman model whilst allowing the user to add innovative and additive anomalies.
 }
 \examples{
 

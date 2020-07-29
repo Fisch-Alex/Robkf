@@ -1,7 +1,7 @@
 #' print
 #'
 #' @name print 
-#' @param horizon A positive integer giving the smoothing horizon that is to be used. It must be at least equal to the number of rows of the horizonmatric used to obtain the ioaorkf object.
+#' @param horizon A positive integer giving the smoothing horizon that is to be used. It must be at least equal to the number of rows of the horizonmatrix used to obtain the ioaorkf object.
 #' @param ... Ignored.
 #' @export
 print.ioaorkf = function(x,time = NULL,horizon = NULL,...){
@@ -18,7 +18,7 @@ print.ioaorkf = function(x,time = NULL,horizon = NULL,...){
   horizon = as.integer(horizon)
   
   if (horizon < x$horizon - 1){
-    stop("horizon must be at least the number of rows of the horizonmatrix used to genereate x.")
+    stop("horizon must be at least the number of rows of the horizonmatrix used to generate x.")
   }
   
   if (is.null(time)){

@@ -13,7 +13,7 @@ IOAORKF(
   Sigma_Add,
   Sigma_Inn,
   Particles,
-  Descendents = 1,
+  Descendants = 1,
   s = 2,
   anom_add_prob = NULL,
   anom_inn_prob = NULL,
@@ -36,15 +36,15 @@ IOAORKF(
 
 \item{Sigma_Inn}{A positive definite diagonal matrix giving the innovative noise covariance.}
 
-\item{Particles}{An integer giving the number of particles to be maintained at each step. More particles lead to more accuracy, but also require more memory and CPU time. The parameter should be at least p + q + 1, where p s the dimension of the obervations and q the dimension of the hidden states.}
+\item{Particles}{An integer giving the number of particles to be maintained at each step. More particles lead to more accuracy, but also require more memory and CPU time. The parameter should be at least p + q + 1, where p s the dimension of the observations and q the dimension of the hidden states.}
 
-\item{Descendents}{An integer giving the number of descendents to be sampled for each of the possible anomalies. Increasing Descendents leads to higher accuracy but also higher memory and CPU requirements. The default value is 1.}
+\item{Descendants}{An integer giving the number of descendants to be sampled for each of the possible anomalies. Increasing Descendants leads to higher accuracy but also higher memory and CPU requirements. The default value is 1.}
 
 \item{s}{A numeric giving the shape of the t-distribution to be considered. It defaults to 2.}
 
-\item{anom_add_prob}{A vector of probabilities with length equal to the dimension of the observations giving the probabilities of additive outiers in each of the components. It defaults to 1/10000.}
+\item{anom_add_prob}{A vector of probabilities with length equal to the dimension of the observations giving the probabilities of additive outliers in each of the components. It defaults to 1/10000.}
 
-\item{anom_inn_prob}{A vector of probabilities with length equal to the dimension of the hidden state giving the probabilities of innovative outiers in each of the components. It defaults to 1/10000.}
+\item{anom_inn_prob}{A vector of probabilities with length equal to the dimension of the hidden state giving the probabilities of innovative outliers in each of the components. It defaults to 1/10000.}
 
 \item{epsilon}{A positive numeric giving the precision to which the limit of the covariance is to be computed. It defaults to 0.000001.}
 
@@ -55,7 +55,7 @@ An ioaorkf S3 class.
 }
 \description{
 An implementation of Computationally Efficient Bayesian Anomaly detection by Sequential Sampling (CE-BASS) by Fisch et al. (2020).
-This function assumes that both the innovations and additions are potentially polluted by a heavy tailed process, which is approximated by a t-dstribution.
+This function assumes that both the innovations and additions are potentially polluted by a heavy tailed process, which is approximated by a t-distribution.
 To approximate the posterior, particles for the precision (inverse variance) are sampled using a robust approximation to the posterior. Conditionally on those samples, the classical Kalman updates are used.
 }
 \examples{
