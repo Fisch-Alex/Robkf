@@ -3,6 +3,10 @@
 #include <iostream>
 #include "kf.h"
 
+#include "exception.h"
+#include "user_interupt.h"
+#include "check_user_interrupt.h"
+
 // [[Rcpp::export]]
 std::list<std::list<Eigen::MatrixXd> > kf_list(const Eigen::MatrixXd& mu_init,
 		     const Eigen::MatrixXd& Sigma_init,
@@ -27,6 +31,12 @@ std::list<std::list<Eigen::MatrixXd> > kf_list(const Eigen::MatrixXd& mu_init,
   std::list<Eigen::MatrixXd>::const_iterator it = ys.begin();
   while(it != ys.end())
     {
+
+      if(check_user_interrupt())
+      {
+	  throw_exception("User interrupt");
+      }
+
       pair = kf_matrix(mu,Sigma,*it,A,b,C,d,R,Q);
       std::list<Eigen::MatrixXd>::iterator pair_it = pair.begin();
       mu = *pair_it;

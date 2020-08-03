@@ -4,6 +4,10 @@
 #include <list>
 #include <vector>
 
+#include "exception.h"
+#include "user_interupt.h"
+#include "check_user_interrupt.h"
+
 // [[Rcpp::export]]
 std::list< std::list <  std::list < Eigen::MatrixXd > > > Robust_filter( const std::list<std::list<Eigen::MatrixXd> > & Y_expanded, const std::list<Eigen::MatrixXd> & C_list, const std::list<Eigen::MatrixXd> & Sigma_Add_list, 
 const std::list<Eigen::MatrixXd> & Sigma_Inn_Contribution, const Eigen::MatrixXd & A, const Eigen::MatrixXd & Sigma_Inn, const Eigen::MatrixXd & Sigma_Add, const double & s, const int & Num_Descendents, const int & Num_Particles,
@@ -28,6 +32,11 @@ const int & horizon, const std::vector <double> & prob_inn, const std::vector <d
 
 	for (it_List = it_List_of_List->begin(); it_List != it_List_of_List->end(); it_List++)
 		{
+
+      			if(check_user_interrupt())
+      			{
+	  			throw_exception("User interrupt");
+      			}
 
 			std::list < Eigen::MatrixXd > Particle;
 

@@ -378,7 +378,11 @@ IOAORKF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,Particles,Descend
   
   precision = solve( C %*% ( A %*%  Sigma_0  %*% t(A)  +  Sigma_Inn ) %*%  t(C) + Sigma_Add )
   
-  Pre_Out = Robust_filter(Y_expanded, C_matrix_list, Sigma_Add_matrix_list, Sigma_Inn_matrix_list, A, Sigma_Inn, Sigma_Add, s, Num_Descendants, Num_Particles, to_sample, Number_of_resamples, sigma_tilde, sigma_hat, mu_0, Sigma_0, horizon, prob_inn, prob_add, Particle_Number, Y_Full_list)
+  
+  tryCatch(
+  {
+    Pre_Out = Robust_filter(Y_expanded, C_matrix_list, Sigma_Add_matrix_list, Sigma_Inn_matrix_list, A, Sigma_Inn, Sigma_Add, s, Num_Descendants, Num_Particles, to_sample, Number_of_resamples, sigma_tilde, sigma_hat, mu_0, Sigma_0, horizon, prob_inn, prob_add, Particle_Number, Y_Full_list)
+  },error = function(e) {print(e$message);stop();})
   
   Transform_particle = function(x){
     

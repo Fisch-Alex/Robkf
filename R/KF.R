@@ -173,6 +173,10 @@ KF = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,epsilon=0.000001)
   
   algo_output  = kf_list(mu_0,Sigma_0,Y,A,b,C,d,Sigma_Add,Sigma_Inn)
   
+  if (is.null(algo_output)){
+    stop("User interrupt.")
+  }
+  
   output = list()
   
   output[["Y"]] = Y

@@ -4,6 +4,10 @@
 
 #include "iorkf_huber.h"
 
+#include "exception.h"
+#include "user_interupt.h"
+#include "check_user_interrupt.h"
+
 // [[Rcpp::export]]
 std::list<std::list<Eigen::MatrixXd> > iorkf_huber_list(const Eigen::MatrixXd& mu_init,
 		     const Eigen::MatrixXd& Sigma_init,
@@ -30,7 +34,11 @@ std::list<std::list<Eigen::MatrixXd> > iorkf_huber_list(const Eigen::MatrixXd& m
   
   while(it != ys.end())
     {
-  
+
+      if(check_user_interrupt())
+      {
+	  throw_exception("User interrupt");
+      }
       
       pair = iorkf_huber_matrix(mu,Sigma,*it,A,b,C,d,R,Q,h);
       std::list<Eigen::MatrixXd>::iterator pair_it = pair.begin();

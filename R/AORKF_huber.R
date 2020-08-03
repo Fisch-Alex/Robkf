@@ -182,6 +182,10 @@ AORKF_huber = function(Y,mu_0,Sigma_0=NULL,A,C,Sigma_Add,Sigma_Inn,h=2,epsilon=0
   
   algo_output  = aorkf_huber_list(mu_0,Sigma_0,Y,A,b,C,d,Sigma_Add,Sigma_Inn,h)
   
+  if (is.null(algo_output)){
+    stop("User interrupt.")
+  }
+  
   output = list()
   
   output[["Y"]] = Y
